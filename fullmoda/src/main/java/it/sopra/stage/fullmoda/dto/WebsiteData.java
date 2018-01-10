@@ -1,25 +1,20 @@
 package it.sopra.stage.fullmoda.dto;
 
-public class WebsiteData {
+import java.io.Serializable;
+
+import lombok.Data;
+
+@Data
+public class WebsiteData implements Serializable{
+
+	private static final long serialVersionUID = -770850860150576671L;
 
 	private String websiteId;
 	
 	private LanguageData language;
 
-	public String getWebsiteId() {
-		return websiteId;
-	}
-
-	public void setWebsiteId(String websiteId) {
-		this.websiteId = websiteId;
-	}
-
-	public LanguageData getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(LanguageData language) {
-		this.language = language;
+	public WebsiteData() {
+		
 	}
 
 	public WebsiteData(String websiteId, LanguageData language) {

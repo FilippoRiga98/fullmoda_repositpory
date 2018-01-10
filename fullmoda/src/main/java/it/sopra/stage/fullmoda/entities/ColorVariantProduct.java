@@ -18,8 +18,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="color_product")
+@Data
+@NoArgsConstructor
 public class ColorVariantProduct  implements Serializable{
 
 	private static final long serialVersionUID = 161584907401149534L;
@@ -39,24 +44,6 @@ public class ColorVariantProduct  implements Serializable{
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="colorVariantProduct", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<SizeVariantProduct> sizeVariantProducts;
-	
-	
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public Color getColor() {
-		return color;
-	}
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	public ColorVariantProduct() {
-
-	}
-	
 	
 	public List<SizeVariantProduct> getSizeVariantProducts() {
 		return sizeVariantProducts;
@@ -87,8 +74,16 @@ public class ColorVariantProduct  implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "ColorVariantProduct [code=" + code + ", color=" + color + ", sizeVariantProducts=" + sizeVariantProducts
-				+ "]";
+		StringBuilder sb = new StringBuilder();
+		sb.append("ColorVariantProduct [code=").append(code).append(", color=").append(color);
+		if(sizeVariantProducts != null) {
+			sb.append(", sizeVariantProducts=[");
+			for (SizeVariantProduct sizeProduct : sizeVariantProducts) {
+				sb.append("->[").append(sizeProduct).append("]");
+			}
+			sb.append("]");
+		}
+		return sb.toString();
 	}
 	
 	

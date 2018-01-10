@@ -1,21 +1,19 @@
 package it.sopra.stage.fullmoda.dto;
 
-public class LanguageData {
+import java.io.Serializable;
+
+import lombok.Data;
+
+@Data
+public class LanguageData implements Serializable{
+	
+	private static final long serialVersionUID = 4562947861148840747L;
 	
 	private String isocode;
 	private String name;
 	
-	public String getIsocode() {
-		return isocode;
-	}
-	public void setIsocode(String isocode) {
-		this.isocode = isocode;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public LanguageData() {
+		
 	}
 	public LanguageData(String isocode, String name) {
 		this.isocode = isocode;

@@ -2,6 +2,9 @@ package it.sopra.stage.fullmoda.dto;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
+@Data
 public class SizeVariantProductData implements Serializable{
 
 	private static final long serialVersionUID = -299235303386525891L;
@@ -9,22 +12,10 @@ public class SizeVariantProductData implements Serializable{
 	private String code;
 	private SizeData size;
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public SizeData getSize() {
-		return size;
-	}
-
-	public void setSize(SizeData size) {
-		this.size = size;
-	}
 	
+	public SizeVariantProductData() {
+		
+	}
 	public SizeVariantProductData(String code, SizeData size) {
 		this.code = code;
 		this.size = size;

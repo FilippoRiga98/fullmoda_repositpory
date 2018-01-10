@@ -11,8 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="stock")
+@Data
+@NoArgsConstructor
 public class Stock implements Serializable {
 
 	private static final long serialVersionUID = -5190480780262686322L;
@@ -34,49 +39,7 @@ public class Stock implements Serializable {
 	@Column(name="reserved")
 	private int reserved;
 
-	public StockPK getStockPK() {
-		return stockPK;
-	}
-
-	public void setStockPK(StockPK stockPK) {
-		this.stockPK = stockPK;
-	}
-
-	public SizeVariantProduct getProduct() {
-		return product;
-	}
-
-	public void setProduct(SizeVariantProduct product) {
-		this.product = product;
-	}
-
-	public Warehouse getWarehouse() {
-		return warehouse;
-	}
-
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
-	}
-
-	public int getAvailable() {
-		return available;
-	}
-
-	public void setAvailable(int available) {
-		this.available = available;
-	}
-
-	public int getReserved() {
-		return reserved;
-	}
-
-	public void setReserved(int reserved) {
-		this.reserved = reserved;
-	}
-
-	public Stock() {
-		
-	}
+	
 	public Stock(StockPK stockPK, SizeVariantProduct product, Warehouse warehouse, int available, int reserved) {
 		this.stockPK = stockPK;
 		this.product = product;

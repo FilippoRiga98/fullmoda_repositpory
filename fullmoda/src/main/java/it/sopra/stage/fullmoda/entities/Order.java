@@ -17,8 +17,13 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="orders")
+@Data
+@NoArgsConstructor
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = -4013846143858009909L;
@@ -52,66 +57,7 @@ public class Order implements Serializable {
 	@JoinColumn(name="payment_method")
 	private PaymentMethod paymentMethod;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public Date getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
-
-	public Address getShippingAddress() {
-		return shippingAddress;
-	}
-
-	public void setShippingAddress(Address shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
-
-	public Address getBillingAddress() {
-		return billingAddress;
-	}
-
-	public void setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-	public PaymentMethod getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(PaymentMethod paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
 	
-	public Order() {
-		
-	}
-
 	public Order(it.sopra.stage.fullmoda.entities.Cart cart, BigDecimal totalPrice, Date orderDate,
 			Address shippingAddress, Address billingAddress, PaymentMethod paymentMethod) {
 		this.cart = cart;

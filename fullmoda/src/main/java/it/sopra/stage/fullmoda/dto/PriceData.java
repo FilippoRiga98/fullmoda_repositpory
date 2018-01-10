@@ -1,27 +1,30 @@
 package it.sopra.stage.fullmoda.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class PriceData {
+import lombok.Data;
 
+@Data
+public class PriceData implements Serializable{
+
+	private static final long serialVersionUID = 2545216780969233951L;
+	
 	private BigDecimal value;
 	private CurrencyData currency;
 	
-	public BigDecimal getValue() {
-		return value;
+	public PriceData() {
+		
 	}
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
-	public CurrencyData getCurrency() {
-		return currency;
-	}
-	public void setCurrency(CurrencyData currency) {
-		this.currency = currency;
-	}
+	
 	public PriceData(BigDecimal value, CurrencyData currency) {
 		this.value = value;
 		this.currency = currency;
+	}
+
+	@Override
+	public String toString() {
+		return "PriceData [value=" + value + ", currency=" + currency + "]";
 	}
 	
 	

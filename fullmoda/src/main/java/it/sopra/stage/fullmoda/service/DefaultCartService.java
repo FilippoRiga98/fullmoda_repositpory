@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import it.sopra.stage.fullmoda.dao.CartRepository;
 import it.sopra.stage.fullmoda.entities.Cart;
-import it.sopra.stage.fullmoda.repos.CartRepository;
 
 @Component
 public class DefaultCartService implements CartService {

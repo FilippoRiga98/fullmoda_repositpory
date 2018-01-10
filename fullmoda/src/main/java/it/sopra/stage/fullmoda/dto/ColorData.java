@@ -1,25 +1,29 @@
 package it.sopra.stage.fullmoda.dto;
 
-public class ColorData {
+import java.io.Serializable;
+
+import lombok.Data;
+
+@Data
+public class ColorData implements Serializable{
+
+	private static final long serialVersionUID = -7748670728549293087L;
 
 	private String code;
 	private String htmlCode;
-	public String getCode() {
-		return code;
+	
+	public ColorData() {
+		
 	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getHtmlCode() {
-		return htmlCode;
-	}
-	public void setHtmlCode(String htmlCode) {
-		this.htmlCode = htmlCode;
-	}
+	
 	public ColorData(String code, String htmlCode) {
-		super();
 		this.code = code;
 		this.htmlCode = htmlCode;
+	}
+	
+	@Override
+	public String toString() {
+		return "ColorData [code=" + code + ", htmlCode=" + htmlCode + "]";
 	}
 	
 	

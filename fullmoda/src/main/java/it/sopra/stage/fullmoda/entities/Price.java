@@ -12,8 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table (name="price")
+@Data
+@NoArgsConstructor
 public class Price implements Serializable {
 
 	private static final long serialVersionUID = 8385173020735659L;
@@ -32,41 +37,7 @@ public class Price implements Serializable {
 	@JoinColumn(name="product",  insertable=false, updatable=false)
 	private BaseProduct baseProduct;
 
-	public BigDecimal getValue() {
-		return value;
-	}
-
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
-
-	public Currency getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
-
-	public BaseProduct getBaseProduct() {
-		return baseProduct;
-	}
-
-	public void setBaseProduct(BaseProduct baseProduct) {
-		this.baseProduct = baseProduct;
-	}
-
-	public PricePK getPricePK() {
-		return pricePK;
-	}
-
-	public void setPricePK(PricePK pricePK) {
-		this.pricePK = pricePK;
-	}
-
-	public Price() {
-		
-	}
+	
 	public Price(PricePK pricePK, BigDecimal value, BaseProduct baseProduct, Currency currency) {
 		this.pricePK = pricePK;
 		this.value = value;

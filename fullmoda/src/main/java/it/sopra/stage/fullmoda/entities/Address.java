@@ -11,8 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="address")
+@Data
+@NoArgsConstructor
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = -4468240752515807448L;
@@ -37,72 +42,11 @@ public class Address implements Serializable {
 	@Column(name="town")
 	private String town;
 	
-//	@JoinColumn(name="country")
-//	@OneToOne (mappedBy="code")//(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
 	@JoinColumn(name="country_code")
 	@OneToOne
 	private Country country;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getLine1() {
-		return line1;
-	}
-
-	public void setLine1(String line1) {
-		this.line1 = line1;
-	}
-
-	public String getLine2() {
-		return line2;
-	}
-
-	public void setLine2(String line2) {
-		this.line2 = line2;
-	}
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-
-	public String getTown() {
-		return town;
-	}
-
-	public void setTown(String town) {
-		this.town = town;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
 	
-	public Address() {
-		
-	}
-
 	public Address(String title, String line1, String line2, String zipCode, String town, Country country) {
 		this.title = title;
 		this.line1 = line1;

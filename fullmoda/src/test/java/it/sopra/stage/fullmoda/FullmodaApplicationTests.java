@@ -17,6 +17,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import it.sopra.stage.fullmoda.dao.AddressRepository;
+import it.sopra.stage.fullmoda.dao.BaseProductRepository;
+import it.sopra.stage.fullmoda.dao.CartEntryRepository;
+import it.sopra.stage.fullmoda.dao.CartRepository;
+import it.sopra.stage.fullmoda.dao.ColorRepository;
+import it.sopra.stage.fullmoda.dao.ColorVariantProductRepository;
+import it.sopra.stage.fullmoda.dao.CountryRepository;
+import it.sopra.stage.fullmoda.dao.CurrencyRepository;
+import it.sopra.stage.fullmoda.dao.OrderRepository;
+import it.sopra.stage.fullmoda.dao.PaymentMethodRepository;
+import it.sopra.stage.fullmoda.dao.PriceRepository;
+import it.sopra.stage.fullmoda.dao.SizeVariantProductRepository;
+import it.sopra.stage.fullmoda.dao.StockRepository;
+import it.sopra.stage.fullmoda.dao.UserRepository;
+import it.sopra.stage.fullmoda.dao.WarehouseRepository;
+import it.sopra.stage.fullmoda.dao.WebsiteRepository;
 import it.sopra.stage.fullmoda.entities.Address;
 import it.sopra.stage.fullmoda.entities.BaseProduct;
 import it.sopra.stage.fullmoda.entities.Cart;
@@ -36,22 +52,6 @@ import it.sopra.stage.fullmoda.entities.StockPK;
 import it.sopra.stage.fullmoda.entities.User;
 import it.sopra.stage.fullmoda.entities.Warehouse;
 import it.sopra.stage.fullmoda.entities.Website;
-import it.sopra.stage.fullmoda.repos.AddressRepository;
-import it.sopra.stage.fullmoda.repos.BaseProductRepository;
-import it.sopra.stage.fullmoda.repos.CartEntryRepository;
-import it.sopra.stage.fullmoda.repos.CartRepository;
-import it.sopra.stage.fullmoda.repos.ColorRepository;
-import it.sopra.stage.fullmoda.repos.ColorVariantProductRepository;
-import it.sopra.stage.fullmoda.repos.CountryRepository;
-import it.sopra.stage.fullmoda.repos.CurrencyRepository;
-import it.sopra.stage.fullmoda.repos.OrderRepository;
-import it.sopra.stage.fullmoda.repos.PaymentMethodRepository;
-import it.sopra.stage.fullmoda.repos.PriceRepository;
-import it.sopra.stage.fullmoda.repos.SizeVariantProductRepository;
-import it.sopra.stage.fullmoda.repos.StockRepository;
-import it.sopra.stage.fullmoda.repos.UserRepository;
-import it.sopra.stage.fullmoda.repos.WarehouseRepository;
-import it.sopra.stage.fullmoda.repos.WebsiteRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

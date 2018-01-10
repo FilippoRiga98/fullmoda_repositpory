@@ -3,6 +3,9 @@ package it.sopra.stage.fullmoda.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class ColorVariantProductData implements Serializable{
 
 	private static final long serialVersionUID = -1596107255131789067L;
@@ -12,34 +15,11 @@ public class ColorVariantProductData implements Serializable{
 	
 	private List<SizeVariantProductData> variants;
 
-	public ColorData getColorData() {
-		return colorData;
-	}
-
-	public void setColorData(ColorData colorData) {
-		this.colorData = colorData;
-	}
-
-	public List<SizeVariantProductData> getVariants() {
-		return variants;
-	}
-
-	public void setVariants(List<SizeVariantProductData> variants) {
-		this.variants = variants;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("ColorVariantProductData [colorData=").append(colorData).append(", variants=[");
+		sb.append("ColorVariantProductData [code =").append(code).append(", colorData=").append(colorData).append(", variants=[");
 		if(variants != null) {
 			for(SizeVariantProductData sizeProduct : variants) {
 				sb.append("->[").append(sizeProduct).append("]");
@@ -49,6 +29,9 @@ public class ColorVariantProductData implements Serializable{
 		return sb.toString();
 	}
 
+	public ColorVariantProductData() {
+		
+	}
 	public ColorVariantProductData(String code, ColorData colorData, List<SizeVariantProductData> variants) {
 		this.code = code;
 		this.colorData = colorData;

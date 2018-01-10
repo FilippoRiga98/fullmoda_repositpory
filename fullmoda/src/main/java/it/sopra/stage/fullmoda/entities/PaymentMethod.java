@@ -7,8 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="payment")
+@Data
+@NoArgsConstructor
 public class PaymentMethod implements Serializable {
 
 	private static final long serialVersionUID = 6012181409124564952L;
@@ -20,26 +25,7 @@ public class PaymentMethod implements Serializable {
 	@Column(name="name")
 	private String name;
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 	
-	public PaymentMethod() {
-		
-	}
-
 	public PaymentMethod(String code, String name) {
 		this.code = code;
 		this.name = name;

@@ -9,8 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="website")
+@Data
+@NoArgsConstructor
 public class Website implements Serializable {
 
 	private static final long serialVersionUID = 8896356598765703885L;
@@ -23,21 +28,11 @@ public class Website implements Serializable {
 	@JoinColumn (name="language")
 	private Language language;
 
-	public String getWebsiteId() {
-		return websiteId;
-	}
-
-	public void setWebsiteId(String websiteId) {
+	public Website(String websiteId, Language language) {
 		this.websiteId = websiteId;
-	}
-
-	public Language getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(Language language) {
 		this.language = language;
 	}
+
 	
 	
 }

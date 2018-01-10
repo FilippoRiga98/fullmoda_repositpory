@@ -7,15 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.dto.ColorVariantProductData;
+import it.sopra.stage.fullmoda.dto.PriceData;
 import it.sopra.stage.fullmoda.dto.ProductData;
 import it.sopra.stage.fullmoda.entities.BaseProduct;
 import it.sopra.stage.fullmoda.entities.ColorVariantProduct;
+import it.sopra.stage.fullmoda.entities.Price;
 
 @Component
 public class BaseProductConverter {
 
 	@Autowired
 	private ColorVariantProductConverter colorVariantConverter;
+	
+	@Autowired
+	private PriceConverter priceConverter;
 	
 	public ProductData convert(BaseProduct product) {
 		List<ColorVariantProduct> colorVariants = product.getColorVariants();
@@ -24,7 +29,12 @@ public class BaseProductConverter {
 			ColorVariantProductData colorVariantData = colorVariantConverter.convert(colorVariant);
 			colorVariantDataList.add(colorVariantData);
 		}
-		
+		List<PriceData> priceDataList = new ArrayList<>();
+		if(product.getPriceList() != null) {
+			for( Price price : product.getPriceList()) {
+				priceDataList.add(priceConverter.convert(price));
+			}
+		}
 		return new ProductData(product.getCode(), product.getDescription(), colorVariantDataList);
 	}
 

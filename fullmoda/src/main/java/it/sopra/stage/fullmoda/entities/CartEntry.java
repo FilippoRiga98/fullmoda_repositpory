@@ -1,6 +1,8 @@
 package it.sopra.stage.fullmoda.entities;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="cart_entries")
+@Data
+@NoArgsConstructor
 public class CartEntry implements Serializable {
 
 	private static final long serialVersionUID = -2582703987960111108L;
@@ -34,43 +41,6 @@ public class CartEntry implements Serializable {
 	
 	@Column(name="quantity")
 	private int quantity;
-
-	
-
-	public Long getEntryId() {
-		return entryId;
-	}
-
-	public void setEntryId(Long entryId) {
-		this.entryId = entryId;
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
-	public SizeVariantProduct getProduct() {
-		return product;
-	}
-
-	public void setProduct(SizeVariantProduct product) {
-		this.product = product;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	public CartEntry() {
-		
-	}
 
 	public CartEntry(SizeVariantProduct product, int quantity) {
 		this.product = product;

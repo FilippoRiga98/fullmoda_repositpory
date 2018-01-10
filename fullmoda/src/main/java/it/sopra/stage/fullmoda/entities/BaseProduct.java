@@ -21,12 +21,16 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="base_product")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@NoArgsConstructor
 public class BaseProduct implements Serializable{
 
-	
 	private static final long serialVersionUID = 6474896975690468820L;
 	
 	@Id
@@ -59,9 +63,7 @@ public class BaseProduct implements Serializable{
 		return "BaseProduct [code=" + code + ", name=" + name + ", description=" + description + ", onlineDate="
 				+ onlineDate + ", offlineDate=" + offlineDate + "]";
 	}
-	public BaseProduct() {
-		
-	}
+	
 	public BaseProduct(String code, String name, String description, Date onlineDate, Date offlineDate) {
 		this.code = code;
 		this.name = name;
@@ -69,43 +71,7 @@ public class BaseProduct implements Serializable{
 		this.onlineDate = onlineDate;
 		this.offlineDate = offlineDate;
 	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public Date getOnlineDate() {
-		return onlineDate;
-	}
-	public void setOnlineDate(Date onlineDate) {
-		this.onlineDate = onlineDate;
-	}
-	public Date getOfflineDate() {
-		return offlineDate;
-	}
-	public void setOfflineDate(Date offlineDate) {
-		this.offlineDate = offlineDate;
-	}
-	public List<ColorVariantProduct> getColorVariants() {
-		return colorVariants;
-	}
-	public void setColorVariants(List<ColorVariantProduct> colorVariants) {
-		this.colorVariants = colorVariants;
-	}
-
+	
 	public void addColorVariant(ColorVariantProduct colorVariant) {
 		if(getColorVariants() == null) {
 			this.colorVariants = new ArrayList<ColorVariantProduct>();
@@ -132,6 +98,7 @@ public class BaseProduct implements Serializable{
 		}
 		this.priceList.addAll(priceList);
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -9,6 +9,9 @@ target/
 .settings
 .springBeans
 
+#Mac
+*.DS_Store
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -22,3 +25,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### LOGS ###
+logs

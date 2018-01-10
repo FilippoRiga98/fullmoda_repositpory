@@ -10,8 +10,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="size_product")
+@Data
+@NoArgsConstructor
 public class SizeVariantProduct implements Serializable{
 
 	private static final long serialVersionUID = 806855520003430882L;
@@ -27,35 +32,6 @@ public class SizeVariantProduct implements Serializable{
 	@JoinColumn(name="baseproduct")
 	private ColorVariantProduct colorVariantProduct;
 	
-
-	public String getCode() {
-		return code;
-	}
-
-
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-
-
-	public Size getSize() {
-		return size;
-	}
-
-
-
-	public void setSize(Size size) {
-		this.size = size;
-	}
-
-
-
-	public SizeVariantProduct() {
-	}
-
-
 
 	public ColorVariantProduct getColorVariantProduct() {
 		return colorVariantProduct;
