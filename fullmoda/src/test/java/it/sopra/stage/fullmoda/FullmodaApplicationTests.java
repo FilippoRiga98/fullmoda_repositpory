@@ -52,7 +52,7 @@ import it.sopra.stage.fullmoda.entities.StockPK;
 import it.sopra.stage.fullmoda.entities.User;
 import it.sopra.stage.fullmoda.entities.Warehouse;
 import it.sopra.stage.fullmoda.entities.Website;
-
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FullmodaApplicationTests {
