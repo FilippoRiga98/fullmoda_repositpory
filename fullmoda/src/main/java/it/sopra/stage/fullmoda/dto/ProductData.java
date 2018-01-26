@@ -12,6 +12,7 @@ public class ProductData implements Serializable {
 
 	private String code;
 	private String description;
+	private String shortDescription;
 	private List<ColorVariantProductData> variants;
 	private PriceData price;
 	
@@ -19,8 +20,9 @@ public class ProductData implements Serializable {
 		
 	}
 	
-	public ProductData(String code, String description, List<ColorVariantProductData> variants) {
+	public ProductData(String code, String shortDescription, String description, List<ColorVariantProductData> variants) {
 		this.code = code;
+		this.shortDescription = shortDescription;
 		this.description = description;
 		this.variants = variants;
 	}
@@ -29,7 +31,7 @@ public class ProductData implements Serializable {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ProductData ");
-		sb.append("[code=").append(this.code).append("], description=").append(this.description).append(", variants=[");
+		sb.append("[code=").append(this.code).append(", shortDescription=").append(this.shortDescription).append(", description=").append(this.description).append(", variants=[");
 		if(this.variants != null) {
 			for(ColorVariantProductData colorVariant : this.variants) {
 				sb.append("->[").append(colorVariant).append("]");

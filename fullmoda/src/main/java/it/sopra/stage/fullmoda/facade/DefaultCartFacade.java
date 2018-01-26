@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.converter.CartConverter;
 import it.sopra.stage.fullmoda.dto.CartData;
-import it.sopra.stage.fullmoda.entities.Cart;
+import it.sopra.stage.fullmoda.model.Cart;
 import it.sopra.stage.fullmoda.service.CartService;
 
 @Component

@@ -2,9 +2,11 @@ package it.sopra.stage.fullmoda.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.sopra.stage.fullmoda.entities.User;
+import it.sopra.stage.fullmoda.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	public User findByEmail(String email);
+	User findByEmail(String email);
+	
+	User findByEmailAndPassword(String email, String password);
 }

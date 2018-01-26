@@ -33,25 +33,25 @@ import it.sopra.stage.fullmoda.dao.StockRepository;
 import it.sopra.stage.fullmoda.dao.UserRepository;
 import it.sopra.stage.fullmoda.dao.WarehouseRepository;
 import it.sopra.stage.fullmoda.dao.WebsiteRepository;
-import it.sopra.stage.fullmoda.entities.Address;
-import it.sopra.stage.fullmoda.entities.BaseProduct;
-import it.sopra.stage.fullmoda.entities.Cart;
-import it.sopra.stage.fullmoda.entities.CartEntry;
-import it.sopra.stage.fullmoda.entities.Color;
-import it.sopra.stage.fullmoda.entities.ColorVariantProduct;
-import it.sopra.stage.fullmoda.entities.Country;
-import it.sopra.stage.fullmoda.entities.Currency;
-import it.sopra.stage.fullmoda.entities.Order;
-import it.sopra.stage.fullmoda.entities.PaymentMethod;
-import it.sopra.stage.fullmoda.entities.Price;
-import it.sopra.stage.fullmoda.entities.PricePK;
-import it.sopra.stage.fullmoda.entities.Size;
-import it.sopra.stage.fullmoda.entities.SizeVariantProduct;
-import it.sopra.stage.fullmoda.entities.Stock;
-import it.sopra.stage.fullmoda.entities.StockPK;
-import it.sopra.stage.fullmoda.entities.User;
-import it.sopra.stage.fullmoda.entities.Warehouse;
-import it.sopra.stage.fullmoda.entities.Website;
+import it.sopra.stage.fullmoda.model.Address;
+import it.sopra.stage.fullmoda.model.BaseProduct;
+import it.sopra.stage.fullmoda.model.Cart;
+import it.sopra.stage.fullmoda.model.CartEntry;
+import it.sopra.stage.fullmoda.model.Color;
+import it.sopra.stage.fullmoda.model.ColorVariantProduct;
+import it.sopra.stage.fullmoda.model.Country;
+import it.sopra.stage.fullmoda.model.Currency;
+import it.sopra.stage.fullmoda.model.Order;
+import it.sopra.stage.fullmoda.model.PaymentMethod;
+import it.sopra.stage.fullmoda.model.Price;
+import it.sopra.stage.fullmoda.model.PricePK;
+import it.sopra.stage.fullmoda.model.Size;
+import it.sopra.stage.fullmoda.model.SizeVariantProduct;
+import it.sopra.stage.fullmoda.model.Stock;
+import it.sopra.stage.fullmoda.model.StockPK;
+import it.sopra.stage.fullmoda.model.User;
+import it.sopra.stage.fullmoda.model.Warehouse;
+import it.sopra.stage.fullmoda.model.Website;
 @Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -142,7 +142,7 @@ public class FullmodaApplicationTests {
 		Address address = new Address("", "via filippo lippi 1", "", "20180", "roma", country);
 		AddressRepository addressRepos = context.getBean(AddressRepository.class);
 		addressRepos.save(address);
-		User user = new User("gigetto", "luigi", "di maio", "CUSTOMER", "giggetto@yopmail.com", "giggetto", "04908304593", null, null, true, null, address);
+		User user = new User("gigetto", "luigi", "di maio", "CUSTOMER", "giggetto@yopmail.com", "04908304593", null, null, true, null, address);
 		userRepos.save(user);
 	}
 	

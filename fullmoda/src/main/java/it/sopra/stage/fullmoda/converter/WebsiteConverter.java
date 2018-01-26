@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.dto.WebsiteData;
-import it.sopra.stage.fullmoda.entities.Website;
+import it.sopra.stage.fullmoda.model.Website;
 
 @Component
 public class WebsiteConverter {

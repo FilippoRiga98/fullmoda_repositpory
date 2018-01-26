@@ -1,6 +1,6 @@
 package it.sopra.stage.fullmoda.service;
 
-import it.sopra.stage.fullmoda.entities.Price;
+import it.sopra.stage.fullmoda.model.Price;
 
 public interface PriceService {
 

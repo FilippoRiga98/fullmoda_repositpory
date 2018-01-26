@@ -10,7 +10,12 @@
 
 	<name>Fullmoda</name>
 	<description>Web App Project for SopraSteria stage</description>
-
+	<developers>
+		<developer>
+			<name>Sara Pirola</name>
+			<email>sara.pirola@soprasteria.com</email>
+		</developer>
+	</developers>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -19,6 +24,7 @@
 	</parent>
 
 	<properties>
+		<projectName>${project.name}</projectName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>

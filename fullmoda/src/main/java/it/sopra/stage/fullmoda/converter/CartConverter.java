@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.dto.CartData;
 import it.sopra.stage.fullmoda.dto.CartEntryData;
-import it.sopra.stage.fullmoda.entities.Cart;
-import it.sopra.stage.fullmoda.entities.CartEntry;
-import it.sopra.stage.fullmoda.entities.User;
-import it.sopra.stage.fullmoda.entities.Website;
+import it.sopra.stage.fullmoda.model.Cart;
+import it.sopra.stage.fullmoda.model.CartEntry;
+import it.sopra.stage.fullmoda.model.User;
+import it.sopra.stage.fullmoda.model.Website;
 
 @Component
 public class CartConverter {
@@ -27,7 +27,7 @@ public class CartConverter {
 	
 	public CartData convert(Cart cart) {
 		Long cartId = cart.getId();
-		User user = cart.getUser();
+		User user = cart.getUser(); 
 		Website website = cart.getWebsite();
 		List<CartEntry> entries = cart.getCartEntries();
 		List<CartEntryData> entriesData = new ArrayList<>();

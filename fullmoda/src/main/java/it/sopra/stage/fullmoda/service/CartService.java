@@ -1,6 +1,6 @@
 package it.sopra.stage.fullmoda.service;
 
-import it.sopra.stage.fullmoda.entities.Cart;
+import it.sopra.stage.fullmoda.model.Cart;
 
 public interface CartService {
 

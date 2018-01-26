@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.dao.CartRepository;
-import it.sopra.stage.fullmoda.entities.Cart;
+import it.sopra.stage.fullmoda.model.Cart;
 
 @Component
 public class DefaultCartService implements CartService {

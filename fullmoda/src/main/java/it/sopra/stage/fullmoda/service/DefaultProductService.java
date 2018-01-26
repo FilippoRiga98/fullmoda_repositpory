@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import it.sopra.stage.fullmoda.dao.BaseProductRepository;
 import it.sopra.stage.fullmoda.dao.ColorVariantProductRepository;
 import it.sopra.stage.fullmoda.dao.SizeVariantProductRepository;
-import it.sopra.stage.fullmoda.entities.BaseProduct;
-import it.sopra.stage.fullmoda.entities.ColorVariantProduct;
-import it.sopra.stage.fullmoda.entities.SizeVariantProduct;
+import it.sopra.stage.fullmoda.model.BaseProduct;
+import it.sopra.stage.fullmoda.model.ColorVariantProduct;
+import it.sopra.stage.fullmoda.model.SizeVariantProduct;
 
 @Component
 public class DefaultProductService implements ProductService {

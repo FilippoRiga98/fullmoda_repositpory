@@ -10,9 +10,8 @@ import it.sopra.stage.fullmoda.converter.BaseProductConverter;
 import it.sopra.stage.fullmoda.converter.PriceConverter;
 import it.sopra.stage.fullmoda.dto.PriceData;
 import it.sopra.stage.fullmoda.dto.ProductData;
-import it.sopra.stage.fullmoda.entities.BaseProduct;
-import it.sopra.stage.fullmoda.entities.ColorVariantProduct;
-import it.sopra.stage.fullmoda.entities.Price;
+import it.sopra.stage.fullmoda.model.BaseProduct;
+import it.sopra.stage.fullmoda.model.Price;
 import it.sopra.stage.fullmoda.service.PriceService;
 import it.sopra.stage.fullmoda.service.ProductService;
 

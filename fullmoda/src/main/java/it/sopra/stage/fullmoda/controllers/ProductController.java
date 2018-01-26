@@ -17,7 +17,7 @@ public class ProductController {
 	@Autowired
 	private ProductFacade productFacade;
 	
-	@RequestMapping(value="/products", method=RequestMethod.GET)
+	@RequestMapping(value= {"/products"}, method=RequestMethod.GET)
 	public String getProducts(Model model){
 		
 		Iterable<ProductData> productList = productFacade.getProductList();

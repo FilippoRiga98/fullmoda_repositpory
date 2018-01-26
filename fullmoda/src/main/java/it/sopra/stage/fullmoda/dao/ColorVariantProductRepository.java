@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.sopra.stage.fullmoda.entities.ColorVariantProduct;
+import it.sopra.stage.fullmoda.model.ColorVariantProduct;
 
 public interface ColorVariantProductRepository extends JpaRepository<ColorVariantProduct, String>{
 

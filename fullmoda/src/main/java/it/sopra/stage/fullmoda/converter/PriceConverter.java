@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.dto.CurrencyData;
 import it.sopra.stage.fullmoda.dto.PriceData;
-import it.sopra.stage.fullmoda.entities.Price;
+import it.sopra.stage.fullmoda.model.Price;
 
 @Component
 public class PriceConverter {

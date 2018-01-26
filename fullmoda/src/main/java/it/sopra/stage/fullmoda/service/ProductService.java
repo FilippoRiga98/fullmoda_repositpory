@@ -1,8 +1,8 @@
 package it.sopra.stage.fullmoda.service;
 
-import it.sopra.stage.fullmoda.entities.BaseProduct;
-import it.sopra.stage.fullmoda.entities.ColorVariantProduct;
-import it.sopra.stage.fullmoda.entities.SizeVariantProduct;
+import it.sopra.stage.fullmoda.model.BaseProduct;
+import it.sopra.stage.fullmoda.model.ColorVariantProduct;
+import it.sopra.stage.fullmoda.model.SizeVariantProduct;
 
 public interface ProductService {
 

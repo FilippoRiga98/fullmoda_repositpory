@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.dto.SizeVariantProductData;
-import it.sopra.stage.fullmoda.entities.Size;
-import it.sopra.stage.fullmoda.entities.SizeVariantProduct;
+import it.sopra.stage.fullmoda.model.Size;
+import it.sopra.stage.fullmoda.model.SizeVariantProduct;
 
 @Component
 public class SizeVariantProductConverter {

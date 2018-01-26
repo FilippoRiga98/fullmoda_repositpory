@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.dao.PriceRepository;
-import it.sopra.stage.fullmoda.entities.Price;
+import it.sopra.stage.fullmoda.model.Price;
 
 @Component
 public class DefaultPriceService implements PriceService{

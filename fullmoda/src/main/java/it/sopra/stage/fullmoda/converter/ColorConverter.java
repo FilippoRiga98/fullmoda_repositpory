@@ -3,7 +3,7 @@ package it.sopra.stage.fullmoda.converter;
 import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.dto.ColorData;
-import it.sopra.stage.fullmoda.entities.Color;
+import it.sopra.stage.fullmoda.model.Color;
 
 @Component
 public class ColorConverter {

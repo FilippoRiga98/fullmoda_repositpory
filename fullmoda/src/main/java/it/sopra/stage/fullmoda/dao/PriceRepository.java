@@ -2,8 +2,8 @@ package it.sopra.stage.fullmoda.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import it.sopra.stage.fullmoda.entities.Price;
-import it.sopra.stage.fullmoda.entities.PricePK;
+import it.sopra.stage.fullmoda.model.Price;
+import it.sopra.stage.fullmoda.model.PricePK;
 
 public interface PriceRepository extends JpaRepository<Price, PricePK> {
 
