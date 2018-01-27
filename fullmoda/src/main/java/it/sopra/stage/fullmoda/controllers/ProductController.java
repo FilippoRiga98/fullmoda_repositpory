@@ -29,7 +29,7 @@ public class ProductController {
 	@RequestMapping(value="/p-{code}", method=RequestMethod.GET)
 	public String getProduct(@PathVariable("code") String code, Model model) {
 		ProductData productData = productFacade.findProduct(code);
-		model.addAttribute("productData", productData);
+		model.addAttribute("product", productData);
 		return "product";
 	}
 }

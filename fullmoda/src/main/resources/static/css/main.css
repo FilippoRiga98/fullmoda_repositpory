@@ -1,15 +1,37 @@
-/* Move down content because we have a fixed navbar that is 50px tall */
+/* GLOBAL
+-------------------------------------------------- */
 body {
   padding-top: 2rem;
   font-family:"Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   font-size:1.3em;
+  
 }
-.jumbotron{
-	background-color:#FFF;
+
+
+.error{
+	color:red;
 }
-.jumbotron p{
-	font-size:1.3em;
+.uppercase{
+	text-transform: uppercase;
 }
+
+footer {
+  /* position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; Set the fixed height of the footer here
+  line-height: 60px; Vertically center the text there */
+  text-align:center;
+  padding-bottom:10px;
+
+}
+
+.jumbotron {
+	margin-bottom:0px;
+}
+
+/* NAVBAR
+-------------------------------------------------- */
 .navbar{
 	min-height:150px;
 }
@@ -34,9 +56,6 @@ body {
 .navbar-nav{
 	float:right;
 }
-.container-fluid{
-	margin-top:150px;
-}
 .navbar-welcome {
     float: left;
     width:20%;
@@ -45,9 +64,26 @@ body {
     text-align:right;
     color:white;
 }
-footer > p{
-	text-align:center;
+.navbar-subheader{
+	width:100%; 
+	float:right;
 }
+.subheader-left{
+	float:left;
+}
+/* BODY
+-------------------------------------------------- */
+.jumbotron{
+	background-color:#FFF;
+}
+.jumbotron p{
+	font-size:1.3em;
+}
+.container-fluid{
+	margin-top:150px;
+}
+/* LOGIN PAGE
+-------------------------------------------------- */
 .new-account-button{
 	border-color:#c8c6c5;
 	color:#313131;
@@ -65,36 +101,50 @@ footer > p{
 .form-control{
 	margin:2px;
 }
-.error{
-	color:red;
-}
-.uppercase{
-	text-transform: uppercase;
-}
 
-/* CUSTOMIZE THE CAROUSEL
+
+/* HOME PAGE CAROUSEL
 -------------------------------------------------- */
-
-/* Carousel base class */
 .carousel {
   margin-bottom: 4rem;
 }
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
-  z-index: 10;
-  bottom: 3rem;
-}
-
-/* Declare heights because of positioning of img element */
-.carousel-item {
-  height: 10rem;
-  background-color: #777;
-}
-.carousel-item > img {
-  position: absolute;
-  top: 0;
-  left: 0;
+.item > img {
   min-width: 100%;
-  height: 32rem;
+  
+}
+.featurette-image{
+	height: 500px;
 }
 
+/* PRODUCT PAGE 
+--------------------------------------------*/
+.img_product{
+	width:100%;
+}
+.col_product{
+	margin-left:4rem;
+}
+.col_product div{
+	width:100%;
+}
+.product-price{
+	border-bottom: 1px solid #c8c6c5;
+    padding-bottom: 15px;
+    position: relative;
+    font-size: larger;
+}
+.style-number-title {
+    line-height: 22px;
+    padding: 7px 0;
+}
+.style-color-material {
+   
+   
+}
+.product_desc {
+    margin-top: 15px;
+    border-top: 1px solid #c8c6c5;
+}
+.size-select{
+	display:none;
+}
