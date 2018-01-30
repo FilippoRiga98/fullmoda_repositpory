@@ -1,7 +1,10 @@
 package it.sopra.stage.fullmoda.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Table(name="user")
 @Data
 @NoArgsConstructor
-public class User implements Serializable {
+public class User implements Serializable,UserDetails {
 
 	private static final long serialVersionUID = 14906121048180977L;
 	
@@ -90,8 +97,51 @@ public class User implements Serializable {
 		this.password = password;
 		this.privacyAgreement = privacyAgreement;
 	}
-	
-	
-	
 
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities()
+	{
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(customerType));
+		return authorities;
+	}
+
+
+	@Override
+	public boolean isAccountNonExpired()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	@Override
+	public boolean isAccountNonLocked()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	@Override
+	public boolean isCredentialsNonExpired()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	@Override
+	public String getUsername()
+	{
+		return email;
+	}
 }

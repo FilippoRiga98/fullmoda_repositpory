@@ -1,16 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "spring" uri = "http://www.springframework.org/tags" %>
-<%@ taglib uri ="http://java.sun.com/jsp/jstl/core" prefix = "c" %>		
+<%@ taglib uri ="http://java.sun.com/jsp/jstl/core" prefix = "c" %>	
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<spring:message code="login.welcome.message" var="welcome" arguments="${user.name}"/>
+<sec:authorize var="loggedIn" access="isAuthenticated()" />
+<c:if test="${loggedIn}">
+	<sec:authentication var="user" property="principal" />
+	<spring:message code="login.welcome.message" var="welcome" arguments="${user.name}"/>
+</c:if>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
   
     <div class="navbar-header">
       <a class="navbar-brand" href="home"><spring:message code = "app.name"/></a>
       <div class="navbar-welcome">
-	    <c:if test="${user != null and user.name != '' }">
+	    <c:if test="${user != null and user.username != '' }">
 	    	<c:out value="${welcome}" />
 	  	</c:if>
       </div>

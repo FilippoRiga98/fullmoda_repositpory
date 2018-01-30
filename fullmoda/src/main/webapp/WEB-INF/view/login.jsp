@@ -16,9 +16,10 @@
 <t:template>
 <div class="row">
 	<div class="col-sm-6">
-      <form:form action="login" method="POST" commandName="loginForm" class="form-signin">
+	
+      <form:form action="performlogin" method="POST" modelAttribute="loginForm" class="form-signin">
         <h2 class="form-signin-heading"><c:out value="${title}"/></h2>
-        
+			        
         <label for="email" class="sr-only">${email}</label>
         <form:input path="email" class="form-control" placeholder="${email}"/>
         <form:errors path="email" cssClass="error"/>
@@ -26,30 +27,40 @@
         <label for="password" class="sr-only">${password}</label>
         <form:input path="password" class="form-control" placeholder="${password}"/>
         <form:errors path="password" cssClass="error"/>
-       	<div class="checkbox">
-          <!-- <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label> -->
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Ricordami
+          </label>
         </div>	
         
-		<spring:hasBindErrors name="loginForm">
+		<!--<spring:hasBindErrors name="loginForm">
 	        <c:forEach var="error" items="${errors.globalErrors}">
 	        	<span class="error"><spring:message message="${error}" /></span>
 	        <br/>
 	        </c:forEach>
-	    </spring:hasBindErrors>
+	    </spring:hasBindErrors> -->
 	    
         <button class="btn btn-lg btn-primary btn-block" type="submit">${submit}</button>
       </form:form>
+      
+      <br />
+      <c:if test="${not empty error}">
+			<div class="error">${error}</div>
+		</c:if>
+		<c:if test="${not empty msg}">
+			<div>${msg}</div>
+		</c:if>
 	</div>
+	
 	<div class="col-sm-6">
 		<p class="uppercase"><c:out value="${register_title}"/></p>
 		<p><c:out value="${register_text1}"/></p>
 		<p><c:out value="${register_text2}"/></p>
 		<a class="btn btn-lg btn-primary btn-block" href="register">${register_button}</a>
 	</div>
+	
 </div>
-    
+
 
 	
 	<%-- <div class="row">

@@ -99,6 +99,10 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		</dependency>
 		
 	</dependencies>
 
@@ -109,6 +113,20 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<plugin>
+		  	<groupId>org.apache.tomcat.maven</groupId>
+		    <artifactId>tomcat7-maven-plugin</artifactId>
+		    <version>2.2</version>
+		    <configuration>
+		    	<url>http://localhost:8080/manager/text</url>
+		    	<server>tomcat7</server>
+		    	<path>/${project.artifactId}</path>
+		    	<username>admin1</username>
+		    	<password>admin1</password>
+		    	<update>true</update>
+		    </configuration>
+		  </plugin>
 		</plugins>
 	</build>
 
