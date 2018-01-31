@@ -22,25 +22,17 @@
 			        
         <label for="email" class="sr-only">${email}</label>
         <form:input path="email" class="form-control" placeholder="${email}"/>
-        <form:errors path="email" cssClass="error"/>
         
         <label for="password" class="sr-only">${password}</label>
-        <form:input path="password" class="form-control" placeholder="${password}"/>
-        <form:errors path="password" cssClass="error"/>
+        <form:password path="password" class="form-control" placeholder="${password}"/>
         <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Ricordami
-          </label>
+	        <label>
+	            <input type="checkbox" name="remember-me" id="remember-me"> Ricordami
+	        </label>
         </div>	
-        
-		<!--<spring:hasBindErrors name="loginForm">
-	        <c:forEach var="error" items="${errors.globalErrors}">
-	        	<span class="error"><spring:message message="${error}" /></span>
-	        <br/>
-	        </c:forEach>
-	    </spring:hasBindErrors> -->
 	    
         <button class="btn btn-lg btn-primary btn-block" type="submit">${submit}</button>
+        
       </form:form>
       
       <br />

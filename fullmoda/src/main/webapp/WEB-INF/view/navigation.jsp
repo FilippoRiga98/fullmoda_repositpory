@@ -34,7 +34,7 @@
 	      		</c:when>
 	      		<c:otherwise>
 	      			<li><a href="my-account"><spring:message code = "navigation.header.menu.my-account"/></a></li>
-	      			<li><a href="logout"><spring:message code = "navigation.header.menu.logout"/></a></li>
+	      			<li><a href="logout?${_csrf.parameterName}=${_csrf.token}"><spring:message code = "navigation.header.menu.logout"/></a></li>
 	      		</c:otherwise>
 	      	</c:choose>
 	    </ul>
