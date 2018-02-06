@@ -210,6 +210,17 @@ INSERT INTO `website` VALUES ('fullmoda_it','it_IT');
 /*!40000 ALTER TABLE `website` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'sara','pirola','customer','sara.pirola@soprasteria.com','$2a$10$wS.42dGff2aMYa6hwIKea.LJnCdHj4NLlfsTtsT.11S/JyEUIJBxW',NULL,NULL,NULL,NULL,1,NULL),(2,'luca','ghezzi','administrator','luca.ghezzi@soprasteria.com','$2a$10$qjq4u.QXpsQ9elrXmPlOxOLvfYRi2BIM20EF4UrsFfri3bhMWq63e',NULL,NULL,NULL,NULL,1,NULL),(5,'luigi','di maio','CUSTOMER','giggetto@yopmail.com','$2a$10$VpmdMVAkpI8Z4QirSLQid.U0wJJ4ZaMljNsATte8BhDffXWoiU7Cq',18,'04908304593',NULL,NULL,1,NULL),(17,'sara','test','CUSTOMER','sara.test2@soprasteria.com','$2a$10$KUpdE8AYPbzT9pVRxONFf.isXS90NzgS7LsWdzb/.TGkoxZVW.gy6',NULL,NULL,NULL,NULL,1,NULL),(20,'Sara','Test','CUSTOMER','sara.test@soprasteria.com','$2a$10$3CNOpcG65npK./NxbU5RA.ZqY0RtootUuF0XyyvFRwekxUUJZenxm',NULL,NULL,NULL,NULL,1,NULL),(21,'Filippo','Rigamonti','CUSTOMER','filippo.rigamonti@soprasteria.com','$2a$10$83sE/jk/j2DJJJT9NrRADe5obZoUZ7tPQsJLLkRCAJ6tf2yRwPkj2',NULL,NULL,NULL,NULL,1,NULL),(29,'Test','Test','CUSTOMER','test@soprasteria.com','$2a$10$3tdpqS2PRpFGooSvhdoyyerQbr.7bfCpiWdHhU04EPVyTvlazktNK',NULL,NULL,NULL,NULL,1,NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 
 SET FOREIGN_KEY_CHECKS=1;
 

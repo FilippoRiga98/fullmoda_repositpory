@@ -363,7 +363,7 @@ CREATE TABLE `user` (
   `surname` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `password` varchar(8) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `address` int(11) DEFAULT NULL,
   `phonenumber` varchar(45) DEFAULT NULL,
   `birthdate` date DEFAULT NULL,
@@ -413,12 +413,18 @@ CREATE TABLE `website` (
 
 DROP TABLE IF EXISTS `persistent_logins`;
 
-CREATE TABLE `persistent_logins` ( 
-  `username` varchar(100) not null, 
-  `series` varchar(64) primary key, 
-  `token` varchar(64) not null, 
-  `last_used` timestamp not null
-);
+DROP TABLE IF EXISTS `password_reset_token`;
+
+CREATE TABLE `password_reset_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(64) NOT NULL,
+  `expiry_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token_UNIQUE` (`token`),
+  KEY `fk_user_fullmoda.user_idx` (`user_id`),
+  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS=1;
 
