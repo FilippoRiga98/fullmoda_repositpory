@@ -12,6 +12,7 @@
 <spring:message code = "login.register.text1" var="register_text1"/>
 <spring:message code = "login.register.text2" var="register_text2"/>
 <spring:message code = "login.register.submit.button" var="register_button"/>
+<spring:message code = "login.forgotPassword.label" var="forgotPassword"/>
 
 <t:template>
 <div class="row">
@@ -38,10 +39,13 @@
       <br />
       <c:if test="${not empty error}">
 			<div class="error">${error}</div>
+			<br />
 		</c:if>
 		<c:if test="${not empty msg}">
 			<div>${msg}</div>
+			<br />
 		</c:if>
+		<a href="forgot-password">${forgotPassword}</a>
 	</div>
 	
 	<div class="col-sm-6">

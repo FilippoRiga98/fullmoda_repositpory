@@ -30,9 +30,9 @@ import lombok.NoArgsConstructor;
 public class User implements Serializable,UserDetails {
 
 	private static final long serialVersionUID = 14906121048180977L;
-	
+		
 	@Id
-	@Column(name="user_id")
+	@Column(name="user_id", updatable=false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
@@ -94,11 +94,16 @@ public class User implements Serializable,UserDetails {
 		this.surname = surname;
 		this.customerType = customerType;
 		this.email = email;
-		this.password = password;
+		this.password =password;
 		this.privacyAgreement = privacyAgreement;
 	}
 
-
+   /**I metodi @Override provenienti dall'interfaccia UserDetails dovranno essere implementati qualora venissero aggiunti gli attributi:
+    * boolean enabled
+    * boolean credentialsExpired
+    * boolean accountLocked
+    * boolean accountExpire*/
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities()
 	{
