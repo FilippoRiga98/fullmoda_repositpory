@@ -70,6 +70,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeInterceptor());
 	}
+	
 
 	
 }

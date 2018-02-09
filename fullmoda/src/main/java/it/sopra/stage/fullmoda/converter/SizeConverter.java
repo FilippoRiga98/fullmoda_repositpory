@@ -11,4 +11,8 @@ public class SizeConverter {
 	public SizeData convert (Size size) {
 		return new SizeData(size.getCode());
 	}
+
+	public Size convert(SizeData size) {
+		return new Size(size.getCode());
+	}
 }

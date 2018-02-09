@@ -6,6 +6,8 @@ public interface CartFacade {
 
 	int addToCart(String productCode);
 	
+	void addToCart(String productCode, int quantity);
+	
 	CartData getCartByUser(String email);
 	
 	int removeFromCart(String productCode, int quantity);

@@ -6,4 +6,5 @@ import it.sopra.stage.fullmoda.model.CartEntry;
 
 public interface CartEntryRepository extends JpaRepository<CartEntry, Long> {
 
+
 }

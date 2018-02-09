@@ -132,10 +132,10 @@
 		    <version>2.2</version>
 		    <configuration>
 		    	<url>http://localhost:8080/manager/text</url>
-		    	<server>tomcat7</server>
+		    	<server>Tomcat7</server>
 		    	<path>/${project.artifactId}</path>
-		    	<username>admin1</username>
-		    	<password>admin1</password>
+		    	<username>admin</username>
+		    	<password>admin</password>
 		    	<update>true</update>
 		    </configuration>
 		  </plugin>

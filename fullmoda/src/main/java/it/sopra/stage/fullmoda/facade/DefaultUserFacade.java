@@ -26,7 +26,7 @@ public class DefaultUserFacade implements UserFacade
 	@Autowired
 	private UserConverter userConverter;
 	@Autowired
-   protected AuthenticationManager authenticationManager;
+	protected AuthenticationManager authenticationManager;
 
 	@Override
 	public boolean save(UserData user)
@@ -85,9 +85,9 @@ public class DefaultUserFacade implements UserFacade
 		request.getSession();
 		authToken.setDetails(new WebAuthenticationDetails(request));
       
-      Authentication authentication = authenticationManager.authenticate(authToken);
+        Authentication authentication = authenticationManager.authenticate(authToken);
      
-      SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 	}
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,12 +17,16 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.web.http.HttpSessionStrategy;
+
+import it.sopra.stage.fullmoda.listeners.DefaultSpringSessionStrategy;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter
 {
+	
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
@@ -32,7 +35,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter
 	
 	@Autowired
 	private AuthenticationProvider defaultAuthenticationProvider;
-
+	
 	 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -46,7 +49,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter
    protected void configure(HttpSecurity http) throws Exception {
        http
          .authorizeRequests()
-         	.antMatchers("/my-account*").authenticated()
+         	.antMatchers("/my-account*", "/cart*").authenticated()
          	.antMatchers("/**").permitAll()
          .and().formLogin()
          	.loginPage("/login")
@@ -70,9 +73,11 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter
          .and().csrf();
    }	
 	
+	
   @Bean
   public PersistentTokenRepository persistentTokenRepository() {
-      JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
+      
+	  JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
       repo.setDataSource(dataSource);
       return repo;
   }
@@ -81,13 +86,18 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter
   public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
 
       SavedRequestAwareAuthenticationSuccessHandler auth = new SavedRequestAwareAuthenticationSuccessHandler();
-   	auth.setTargetUrlParameter("targetUrl");
-   	return auth;
+	  auth.setTargetUrlParameter("targetUrl");
+	  return auth;
   }
   
   @Bean
   public PasswordEncoder passwordEncoder() {
       return new BCryptPasswordEncoder();
+  }
+  
+  @Bean
+  public HttpSessionStrategy httpSessionStrategy(){
+	  return new DefaultSpringSessionStrategy();
   }
  
 }

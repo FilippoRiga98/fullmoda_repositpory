@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import it.sopra.stage.fullmoda.dto.ProductData;
 import it.sopra.stage.fullmoda.facade.ProductFacade;
+import it.sopra.stage.fullmoda.form.ProductForm;
 
 @Controller
 public class ProductController {
@@ -30,6 +31,7 @@ public class ProductController {
 	public String getProduct(@PathVariable("code") String code, Model model) {
 		ProductData productData = productFacade.findProduct(code);
 		model.addAttribute("product", productData);
+		model.addAttribute("productForm", new ProductForm());
 		return "product";
 	}
 }

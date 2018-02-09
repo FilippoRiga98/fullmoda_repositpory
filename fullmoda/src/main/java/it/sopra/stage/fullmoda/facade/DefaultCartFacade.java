@@ -16,11 +16,6 @@ public class DefaultCartFacade implements CartFacade{
 	
 	@Autowired
 	private CartConverter cartConverter;
-	
-	@Override
-	public int addToCart(String productCode) {
-		return 0;
-	}
 
 	@Override
 	public CartData getCartByUser(String email) {
@@ -31,6 +26,18 @@ public class DefaultCartFacade implements CartFacade{
 	@Override
 	public int removeFromCart(String productCode, int quantity) {
 		return 0;
+	}
+
+	@Override
+	public int addToCart(String productCode) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void addToCart(String productCode, int quantity) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

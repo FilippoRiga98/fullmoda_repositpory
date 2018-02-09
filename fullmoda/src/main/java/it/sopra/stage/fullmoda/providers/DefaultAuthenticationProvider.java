@@ -11,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import it.sopra.stage.fullmoda.dao.UserRepository;
 import it.sopra.stage.fullmoda.model.User;
 import it.sopra.stage.fullmoda.service.UserService;
 
@@ -29,19 +28,18 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider
 		String password = (String) authentication.getCredentials();
 		User user = userService.validateUser(email, password);
 		
-		 if (user == null || !user.getUsername().equalsIgnoreCase(email)) {
-          throw new BadCredentialsException("Username not found.");
-      }
-
-      if (!password.equals(user.getPassword())) {
-          throw new BadCredentialsException("Wrong password.");
-      }
-      
-      Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-      
-      return new UsernamePasswordAuthenticationToken(user, password, authorities);
+		if (user == null || !user.getUsername().equalsIgnoreCase(email)) {
+			throw new BadCredentialsException("Username not found.");
+	     }
+		if (!password.equals(user.getPassword())) {
+	        throw new BadCredentialsException("Wrong password.");
+	     }
+	      
+	     Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+	      
+	     return new UsernamePasswordAuthenticationToken(user, password, authorities);
 	}
-
+	
 	@Override
 	public boolean supports(Class<?> authentication)
 	{

@@ -27,6 +27,24 @@
 			</ul>
 		</div>
 		<ul class="nav navbar-nav">
+			<li><a href="cart">
+				<c:choose>
+					<c:when test="${sessionScope.cart != null and not empty sessionScope.cart}">
+					<c:choose>
+						<c:when test="${not empty sessionScope.cart.entries.size() and sessionScope.cart.entries.size() != null}">
+							<c:set var="cartSize" value="${sessionScope.cart.entries.size()}" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="cartSize" value="${0}" />
+						</c:otherwise>
+					</c:choose>
+					<spring:message code="navigation.header.menu.cart" arguments="${cartSize}"/>
+					</c:when>
+					<c:otherwise>
+						<spring:message code="navigation.header.menu.cart" arguments="0"/>
+					</c:otherwise>
+				</c:choose>
+			</a></li>
 			<li><a href="products"><spring:message code = "navigation.header.menu.products"/></a></li>
 				<c:choose>
 				<c:when test="${user == null}">
