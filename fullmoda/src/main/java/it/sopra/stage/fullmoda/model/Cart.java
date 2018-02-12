@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -90,6 +92,16 @@ public class Cart implements Serializable{
 		}
 		sb.append("] , user=").append(user).append(", website=").append(website).append(", created=").append(created).append(", lastmodified=").append(lastModified).append("]");
 		return sb.toString();
+	}
+	
+	@PrePersist
+	protected void onCreate() {
+	    this.created = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.lastModified = new Date();
 	}
 	
 }

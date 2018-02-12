@@ -36,4 +36,15 @@ public class CartConverter {
 		}
 		return new CartData(cartId, entriesData, userConverter.convert(user), websiteConverter.convert(website));
 	}
+	
+	public Cart convert(CartData source) {
+		Cart target = new Cart();
+		target.setId(source.getId());
+		target.setUser(userConverter.convert(source.getUser()));
+		target.setWebsite(websiteConverter.convert(source.getWebsite()));
+		List<CartEntryData> entriesData = source.getEntries();
+		entriesData.forEach(x -> target.addCartEntry(cartEntryConverter.convert(x)));
+		target.getCartEntries().forEach(x -> x.setCart(target));
+		return target;
+	}
 }

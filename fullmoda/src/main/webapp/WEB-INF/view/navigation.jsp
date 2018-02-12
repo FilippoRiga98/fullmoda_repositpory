@@ -30,18 +30,18 @@
 			<li><a href="cart">
 				<c:choose>
 					<c:when test="${sessionScope.cart != null and not empty sessionScope.cart}">
-					<c:choose>
-						<c:when test="${not empty sessionScope.cart.entries.size() and sessionScope.cart.entries.size() != null}">
-							<c:set var="cartSize" value="${sessionScope.cart.entries.size()}" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="cartSize" value="${0}" />
-						</c:otherwise>
-					</c:choose>
+						<c:choose>
+							<c:when test="${not empty sessionScope.cart.entries and sessionScope.cart.entries != null}">
+								<c:set var="cartSize" value="${sessionScope.cart.totalQuantity()}" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="cartSize" value="${0}" />
+							</c:otherwise>
+						</c:choose>
 					<spring:message code="navigation.header.menu.cart" arguments="${cartSize}"/>
 					</c:when>
 					<c:otherwise>
-						<spring:message code="navigation.header.menu.cart" arguments="0"/>
+						<spring:message code="navigation.header.menu.cart" arguments="${0}"/>
 					</c:otherwise>
 				</c:choose>
 			</a></li>
@@ -52,7 +52,12 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="my-account"><spring:message code = "navigation.header.menu.my-account"/></a></li>
-					<li><a href="logout?${_csrf.parameterName}=${_csrf.token}"><spring:message code = "navigation.header.menu.logout"/></a></li>
+					<li>
+						<a href="logout"  id="logoutInp"><spring:message code = "navigation.header.menu.logout"/></a>
+						<form action="logout" class="form-logout" method="POST" id="logout">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						</form> 
+					</li>
 				</c:otherwise>
 			</c:choose>
 		</ul>

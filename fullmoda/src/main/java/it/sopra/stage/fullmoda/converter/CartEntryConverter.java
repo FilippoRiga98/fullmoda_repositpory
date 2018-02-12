@@ -19,4 +19,12 @@ public class CartEntryConverter {
 		SizeVariantProductData sizeProductData = sizeProductConverter.convert(entry.getProduct());
 		return new CartEntryData(entryId, sizeProductData, quantity);
 	}
+	
+	public CartEntry convert(CartEntryData source) {
+		CartEntry target = new CartEntry();
+		target.setEntryId(source.getId());
+		target.setQuantity(source.getQuantity());
+		target.setProduct(sizeProductConverter.convert(source.getProduct()));
+		return target;
+	}
 }

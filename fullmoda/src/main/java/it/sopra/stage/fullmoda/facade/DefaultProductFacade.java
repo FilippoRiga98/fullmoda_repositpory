@@ -2,14 +2,18 @@ package it.sopra.stage.fullmoda.facade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.sopra.stage.fullmoda.converter.BaseProductConverter;
 import it.sopra.stage.fullmoda.converter.PriceConverter;
+import it.sopra.stage.fullmoda.dto.ColorVariantProductData;
 import it.sopra.stage.fullmoda.dto.PriceData;
 import it.sopra.stage.fullmoda.dto.ProductData;
+import it.sopra.stage.fullmoda.dto.SizeVariantProductData;
+import it.sopra.stage.fullmoda.form.ProductForm;
 import it.sopra.stage.fullmoda.model.BaseProduct;
 import it.sopra.stage.fullmoda.model.Price;
 import it.sopra.stage.fullmoda.service.PriceService;
@@ -72,6 +76,18 @@ public class DefaultProductFacade implements ProductFacade {
 			productDataList.add(productData);
 		}
 		return productDataList;
+	}
+	
+	@Override
+	public Optional<SizeVariantProductData> searchSizeVariant(ProductData product, ProductForm productForm) {
+		
+		Optional<ColorVariantProductData> colorVariant = null;
+		colorVariant = product.getVariants().stream().filter(x -> x.getColorData().getHtmlCode().equals(productForm.getColor())).findFirst();
+		Optional<SizeVariantProductData> sizeVariant = null;
+		if(colorVariant.isPresent()) {		
+			sizeVariant = colorVariant.get().getVariants().stream().filter(x -> x.getSize().getCode().equals(productForm.getSize())).findFirst();			
+		}
+		return sizeVariant;
 	}
 
 }

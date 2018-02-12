@@ -33,12 +33,14 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 
 	@Override
 	public void onInvalidateSession(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().removeAttribute("cart");
 		cookieStrategy.onInvalidateSession(request, response);
 		
 	}
 
 	@Override
 	public void onNewSession(Session session, HttpServletRequest request, HttpServletResponse response) {
+		
 		cookieStrategy.onNewSession(session, request, response);		
 		String email = null;
 		try {
@@ -46,7 +48,7 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 			email = secContext.getAuthentication().getName();
 		} catch (Exception e) {
 			
-			LOG.error("Errore nel get della email");
+			LOG.warn("Utente anonimo");
 		}
 		if(email != "ANONYMOUS" && email != null && email != "") {
 			CartData cart = cartFacade.getCartByUser(email);

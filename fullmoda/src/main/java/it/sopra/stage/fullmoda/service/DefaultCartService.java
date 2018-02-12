@@ -12,7 +12,7 @@ import it.sopra.stage.fullmoda.model.Cart;
 @Component
 public class DefaultCartService implements CartService {
 
-	private static final Logger logger = Logger.getLogger(DefaultCartService.class);
+	private static final Logger LOG = Logger.getLogger(DefaultCartService.class);
 	
 	@Autowired
 	private CartRepository cartRepository;
@@ -26,7 +26,7 @@ public class DefaultCartService implements CartService {
 	@Override
 	public Cart getCartByUser(String email) {
 		Cart cart = cartRepository.findByUserEmail(email);
-		logger.info(cart);
+		LOG.info(cart);
 		return cart;
 	}
 
@@ -34,6 +34,11 @@ public class DefaultCartService implements CartService {
 	public int removeFromCart(String productCode, int quantity) {
 		//TODO
 		return 0;
+	}
+
+	@Override
+	public void addToCart(Cart cart) {
+		cartRepository.save(cart);
 	}
 
 }

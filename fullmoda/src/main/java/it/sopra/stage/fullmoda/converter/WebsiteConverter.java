@@ -15,4 +15,8 @@ public class WebsiteConverter {
 	public WebsiteData convert(Website website) {
 		return new WebsiteData(website.getWebsiteId(), languageConverter.convert(website.getLanguage()));
 	}
+	
+	public Website convert(WebsiteData source) {
+		return new Website(source.getWebsiteId(), languageConverter.convert(source.getLanguage()));
+	}
 }

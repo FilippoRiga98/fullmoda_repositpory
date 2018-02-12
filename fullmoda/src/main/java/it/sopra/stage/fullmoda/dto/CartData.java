@@ -27,6 +27,14 @@ public class CartData implements Serializable{
 		this.user = user;
 		this.website = website;
 	}
+	
+	public int totalQuantity() {
+		int totalQuantity = 0;
+		for(CartEntryData entry : entries) {
+			totalQuantity += entry.getQuantity();
+		}
+		return totalQuantity;
+	}
 
 
 	@Override

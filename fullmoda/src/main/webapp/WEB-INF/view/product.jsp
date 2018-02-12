@@ -10,6 +10,8 @@
 <spring:message code="product.page.buy" var="addToCart"/>
 
 <t:template>
+	
+	
 	<div class="row">
 		<div class="col-sm-6">
 			<img src="images/${product.code}.jpg" class="img_product img-responsive img-rounded"/>
@@ -30,11 +32,11 @@
 					<div class="product-style-selector">
 	                    <div class="style-color-material">
 							<div class="form-group">
-		                        <select name="color" class="form-control color-select">
+		                        <form:select path="color" class="form-control color-select">
 									<c:forEach var="color_variant" items="${colorVariants}">
-											<option value="${color_variant.code}">${color_variant.colorData.htmlCode}</option>
+											<form:option value="${color_variant.colorData.htmlCode}">${color_variant.colorData.htmlCode}</form:option>
 									</c:forEach>
-								</select>	
+								</form:select>	
 	                         </div>
 	                    </div>
 	                    
@@ -42,11 +44,11 @@
 					<div class="sizes">
 						<c:forEach  var="colorVariant" items="${colorVariants}">
 							<div class="form-group">
-								<select name="size" class="form-control size-select" id="sizesOf-${colorVariant.code}">
+								<form:select path="size" class="form-control size-select">
 										<c:forEach var="sizeVariant" items="${colorVariant.variants}">
-												<option value="${sizeVariant.size.code}">${sizeVariant.size.code}</option>
+												<form:option value="${sizeVariant.size.code}">${sizeVariant.size.code}</form:option>
 										</c:forEach>
-								</select>
+								</form:select>
 							</div>
 						</c:forEach>
 						
@@ -65,6 +67,7 @@
 		                  <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
 					</div>
 				</div>
+
 				<br />
 				<input type="submit" class="btn btn-primary btn-lg" value="${addToCart}" /> 
 			</form:form>
