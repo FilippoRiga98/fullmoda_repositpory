@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.sopra.stage.fullmoda.dto.CartData;
 import it.sopra.stage.fullmoda.dto.CartEntryData;
@@ -36,8 +40,13 @@ public class CartController {
 	private ProductFacade productFacade;
 	
 	@RequestMapping(value = "/addToCart", method = RequestMethod.POST)
-	public String addToCart(@ModelAttribute("productForm") final ProductForm productForm,
-			HttpServletRequest request) {
+	public String addToCart(@ModelAttribute("productForm") @Valid final ProductForm productForm,
+			HttpServletRequest request, BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors()) {
+			LOG.error("Scegliere almeno un colore e una taglia e scgliere una quantita' superiore a 0");
+			return "redirect:/p-" + productForm.getBaseProductCode();
+		}
 		
 		CartData cart = null;
 		cart = (CartData) request.getSession(false).getAttribute("cart");
@@ -68,7 +77,16 @@ public class CartController {
 			if(optionalVariant.isPresent()) {
 				Optional<CartEntryData> optionalEntry = entries.stream().filter(x -> x.getProduct().getCode()
 						.equals(optionalVariant.get().getCode())).findFirst();
-				entries = cartFacade.updateOrCreateEntry(optionalEntry, productForm, entries, sizeVariant.get());
+				
+				if(optionalEntry.isPresent()) {
+					entries = cartFacade.addEntryQuantity(optionalEntry.get(), productForm.getQuantity(), entries);
+				}
+				else {
+					CartEntryData entry = new CartEntryData();
+					entry.setProduct(sizeVariant.get());
+					entry.setQuantity(productForm.getQuantity());
+					entries.add(entry);
+				}
 				
 				cart.setEntries(entries);
 				cartFacade.addToCart(cart);
@@ -80,12 +98,32 @@ public class CartController {
 		}
 		
 		
-		return "redirect:/p-" + productForm.getBaseProductCode();
+		return "redirect:/cart";
 	}
 	
-	@RequestMapping("/removeProduct")
-	public int removeProduct(final String productCode, final int quantity) {
-		return cartFacade.removeFromCart(productCode, quantity);
+	@RequestMapping("/removeFromCart-{code}")
+	public String removeFromCart(@PathVariable("code") String code, HttpServletRequest request) {
+		
+		CartData cart = null;
+		cart = (CartData) request.getSession(false).getAttribute("cart");
+		if(cart != null) {
+			
+			List<CartEntryData> entries = cart.getEntries();
+			Optional<CartEntryData> entryToRemove = entries.stream().filter(x -> x.getProduct().getCode().equals(code)).findFirst();
+			
+			if(entryToRemove.isPresent()) {
+				try {
+					entries = cartFacade.removeFromCart(entryToRemove.get().getProduct().getCode(), cart.getId());
+					cart.setEntries(entries);
+				} catch(Exception e) {
+					LOG.error("Errore nella rimozione del prodotta da DB");
+				}
+			}
+			
+			request.getSession(false).setAttribute("cart", cart);
+		}
+		
+		return "redirect:/cart";
 	}
 	
 	@RequestMapping("/cart")
@@ -127,6 +165,54 @@ public class CartController {
 		model.addAttribute("entries", entriesWithProduct);
 		
 		return "cart";
+	}
+	
+	@RequestMapping("/removeAllFromCart")
+	public String removeAllFromCart(HttpServletRequest request) {
+		
+		CartData cart = null;
+		cart = (CartData) request.getSession(false).getAttribute("cart");
+		try {
+			List<CartEntryData> entries = cartFacade.removeAllFromCart(cart.getId());
+			cart.setEntries(entries);
+		} catch(Exception e) {
+			LOG.error("Errore nella rimozione di tutte le entry dal carrello di id: " + cart.getId());
+		}
+		
+		request.getSession(false).setAttribute("cart", cart);
+		
+		return "redirect:/cart";
+	}
+	
+	@RequestMapping("/updateQuantity-{code}")
+	public String updateQuantity(HttpServletRequest request,
+			@PathVariable("code") String code,
+			@RequestParam("quantity") int quantity) {
+		
+		CartData cart = null;
+		cart = (CartData) request.getSession(false).getAttribute("cart");
+		if(cart != null) {
+			
+			List<CartEntryData> entries = cart.getEntries();
+			Optional<CartEntryData> entryToUpdate = entries.stream().filter(x -> x.getProduct().getCode().equals(code)).findFirst();
+			
+			if(entryToUpdate.isPresent()) {
+				
+				try {
+					entries.forEach(x -> {if(x.getProduct().getCode().equals(entryToUpdate.get().getProduct().getCode()))
+						x.setQuantity(quantity);});		
+					cart.setEntries(entries);
+					cartFacade.updateEntryQuantity(cart);
+				} catch(Exception e) {
+					LOG.error("Errore nell' update della quantita'");
+				}
+			}
+			
+			request.getSession(false).setAttribute("cart", cart);
+		}
+		
+		
+		return "redirect:/cart";
 	}
 	
 	

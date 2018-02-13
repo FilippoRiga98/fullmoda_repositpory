@@ -69,12 +69,12 @@ public class ResetPasswordController
 		
 		PasswordResetTokenData tokenReset = resetTokenFacade.findByToken(resetPasswordForm.getToken());
 	
-      UserData user = tokenReset.getUser();     
-      user.setPassword(passwordEncoder.encode(resetPasswordForm.getPassword()));
+        UserData user = tokenReset.getUser();     
+        user.setPassword(passwordEncoder.encode(resetPasswordForm.getPassword()));
 
-   	userFacade.updatePassword(user.getPassword(), user.getEmail());  
-   	resetTokenFacade.delete(tokenReset);
+   	    userFacade.updatePassword(user.getPassword(), user.getEmail());  
+   	    resetTokenFacade.delete(tokenReset);
   
-      return "redirect:/login?resetSuccess";
+        return "redirect:/login?resetSuccess";
 	}
 }

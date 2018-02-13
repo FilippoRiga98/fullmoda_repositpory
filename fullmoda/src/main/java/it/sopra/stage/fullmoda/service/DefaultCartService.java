@@ -1,13 +1,15 @@
 package it.sopra.stage.fullmoda.service;
 
-
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.sopra.stage.fullmoda.dao.CartRepository;
 import it.sopra.stage.fullmoda.model.Cart;
+import it.sopra.stage.fullmoda.model.CartEntry;
 
 @Component
 public class DefaultCartService implements CartService {
@@ -16,12 +18,6 @@ public class DefaultCartService implements CartService {
 	
 	@Autowired
 	private CartRepository cartRepository;
-	
-	@Override
-	public int addToCart(String productCode) {
-		//TODO
-		return 0;
-	}
 
 	@Override
 	public Cart getCartByUser(String email) {
@@ -31,13 +27,34 @@ public class DefaultCartService implements CartService {
 	}
 
 	@Override
-	public int removeFromCart(String productCode, int quantity) {
-		//TODO
-		return 0;
+	public void addToCart(Cart cart) {
+		cartRepository.save(cart);
 	}
 
 	@Override
-	public void addToCart(Cart cart) {
+	@Transactional
+	public List<CartEntry> removeFromCart(String productCode, Long cartId) {
+		//Senza richiamare la repository elimina dal DB la entry selezionata
+		Cart cart = cartRepository.findOne(cartId);
+		List<CartEntry> entries = cart.getCartEntries();
+		entries.removeIf(x -> x.getProduct().getCode().equals(productCode));
+		LOG.info("Entry eliminata, per il carrello di id: " + cartId + " con codice prodotto: " + productCode);
+		return entries;
+	}
+
+	@Override
+	@Transactional
+	public List<CartEntry> removeAllFromCart(Long cartId) {
+		
+		Cart cart = cartRepository.findOne(cartId);
+		List<CartEntry> entries = cart.getCartEntries();
+		entries.clear();
+		LOG.info("Tutte le entry eliminate per il carrello di id: " + cartId);
+		return entries;
+	}
+
+	@Override
+	public void updateQuantity(Cart cart) {
 		cartRepository.save(cart);
 	}
 

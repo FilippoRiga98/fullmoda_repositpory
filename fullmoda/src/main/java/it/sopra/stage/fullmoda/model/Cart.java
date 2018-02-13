@@ -39,7 +39,7 @@ public class Cart implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToMany(mappedBy="cart", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="cart", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
 	private List<CartEntry> cartEntries;
 	
 	@Column(name="lastmodified")

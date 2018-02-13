@@ -60,16 +60,8 @@
 				</div>
 				<br />
 				<form:hidden path="baseProductCode" value="${product.code}"/>
-				<div class="quantity">
-					<div>
-		                  <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-		                  <form:input path="quantity" value="1" />
-		                  <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
-					</div>
-				</div>
-
-				<br />
-				<input type="submit" class="btn btn-primary btn-lg" value="${addToCart}" /> 
+                <input id="quantity" name="quantity" type="number" class="form-control text-center" value="1" min="1">
+				<input type="submit" class="btn btn-primary btn-lg btn-block" value="${addToCart}" />
 			</form:form>
 		</div>
 	</div>

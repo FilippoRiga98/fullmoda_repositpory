@@ -24,7 +24,7 @@ import it.sopra.stage.fullmoda.listeners.DefaultSpringSessionStrategy;
 
 @Configuration
 @EnableWebSecurity
-public class SecSecurityConfig extends WebSecurityConfigurerAdapter
+public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
 	
 	@Autowired
