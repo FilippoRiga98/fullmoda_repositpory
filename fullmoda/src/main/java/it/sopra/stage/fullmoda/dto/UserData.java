@@ -3,7 +3,6 @@ package it.sopra.stage.fullmoda.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import it.sopra.stage.fullmoda.model.Address;
 import lombok.Data;
 
 @Data
@@ -22,7 +21,7 @@ public class UserData implements Serializable{
 	private String birthPlace;
 	private boolean privacyAgreement;
 	private String fiscalCode;
-	private Address address;
+	private AddressData address;
 	
 	public UserData() {
 		

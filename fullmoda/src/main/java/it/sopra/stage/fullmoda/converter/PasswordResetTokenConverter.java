@@ -29,7 +29,7 @@ public class PasswordResetTokenConverter
 		if(source != null) {
    		target.setId(source.getId());
    		target.setToken(source.getToken());
-   		target.setUser(userConverter.convert(source.getUser()));
+   		target.setUser(userConverter.convert(source.getUser(), false));
    		target.setExpiryDate(source.getExpiryDate());
 		}
 		

@@ -7,8 +7,6 @@ import it.sopra.stage.fullmoda.dto.CartEntryData;
 
 public interface CartFacade {
 	
-	void addToCart(CartData cart);
-	
 	CartData getCartByUser(String email);
 	
 	List<CartEntryData> removeFromCart(String productCode, Long cartId);
@@ -17,5 +15,5 @@ public interface CartFacade {
 
 	List<CartEntryData> addEntryQuantity(CartEntryData entry, int quantity, List<CartEntryData> entries);
 
-	void updateEntryQuantity(CartData cart);	
+	void save(CartData cart);	
 }

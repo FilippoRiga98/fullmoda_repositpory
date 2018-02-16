@@ -97,6 +97,7 @@ public class Cart implements Serializable{
 	@PrePersist
 	protected void onCreate() {
 	    this.created = new Date();
+	    this.lastModified = new Date();
 	}
 
 	@PreUpdate

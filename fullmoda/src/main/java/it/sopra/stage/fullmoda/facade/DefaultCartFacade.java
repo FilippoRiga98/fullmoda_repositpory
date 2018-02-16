@@ -46,12 +46,6 @@ public class DefaultCartFacade implements CartFacade{
 	}
 
 	@Override
-	public void addToCart(CartData cartData) {
-	    Cart cart = cartConverter.convert(cartData);
-		cartService.addToCart(cart);
-	}
-
-	@Override
 	public List<CartEntryData> addEntryQuantity(CartEntryData entry, int quantity,
 			List<CartEntryData> entries) {
 		
@@ -75,9 +69,9 @@ public class DefaultCartFacade implements CartFacade{
 	}
 
 	@Override
-	public void updateEntryQuantity(CartData cartData) {
+	public void save(CartData cartData) {
 		Cart cart = cartConverter.convert(cartData);
-		cartService.updateQuantity(cart);
+		cartService.save(cart);
 	}
 
 }

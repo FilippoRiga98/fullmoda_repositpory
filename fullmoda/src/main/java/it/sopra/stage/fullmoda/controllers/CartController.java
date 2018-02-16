@@ -49,7 +49,7 @@ public class CartController {
 		}
 		
 		CartData cart = null;
-		cart = (CartData) request.getSession(false).getAttribute("cart");
+		cart = (CartData) request.getSession().getAttribute("cart");
 		List<CartEntryData> entries = null;
 		if(cart != null) {
 			entries = cart.getEntries();
@@ -73,28 +73,41 @@ public class CartController {
 		}
 	
 		final Optional<SizeVariantProductData> optionalVariant = sizeVariant;
-		try {
-			if(optionalVariant.isPresent()) {
+	
+		if(optionalVariant.isPresent()) {
+			
+			if(entries != null) {
 				Optional<CartEntryData> optionalEntry = entries.stream().filter(x -> x.getProduct().getCode()
 						.equals(optionalVariant.get().getCode())).findFirst();
 				
 				if(optionalEntry.isPresent()) {
 					entries = cartFacade.addEntryQuantity(optionalEntry.get(), productForm.getQuantity(), entries);
-				}
+				} 
 				else {
 					CartEntryData entry = new CartEntryData();
 					entry.setProduct(sizeVariant.get());
 					entry.setQuantity(productForm.getQuantity());
 					entries.add(entry);
 				}
-				
-				cart.setEntries(entries);
-				cartFacade.addToCart(cart);
-				
-				request.getSession(false).setAttribute("cart", cart);
 			}
-		} catch(Exception e) {
-			LOG.error("Non riesco ad aggiungere la entry al carrello per il carrello di id: " + cart.getId() + e.getMessage());
+			else {
+				entries = new ArrayList<CartEntryData>();
+				CartEntryData entry = new CartEntryData();
+				entry.setProduct(sizeVariant.get());
+				entry.setQuantity(productForm.getQuantity());
+				entries.add(entry);
+			}
+			cart.setEntries(entries);
+			
+		}
+		
+		request.getSession().setAttribute("cart", cart);
+		
+		try {
+			cartFacade.save(cart);
+		}			
+	    catch(Exception e) {
+			LOG.error("Non riesco ad aggiungere la entry al carrello per il carrello di id: " + cart.getId());
 		}
 		
 		
@@ -105,7 +118,7 @@ public class CartController {
 	public String removeFromCart(@PathVariable("code") String code, HttpServletRequest request) {
 		
 		CartData cart = null;
-		cart = (CartData) request.getSession(false).getAttribute("cart");
+		cart = (CartData) request.getSession().getAttribute("cart");
 		if(cart != null) {
 			
 			List<CartEntryData> entries = cart.getEntries();
@@ -113,14 +126,16 @@ public class CartController {
 			
 			if(entryToRemove.isPresent()) {
 				try {
-					entries = cartFacade.removeFromCart(entryToRemove.get().getProduct().getCode(), cart.getId());
-					cart.setEntries(entries);
+					cartFacade.removeFromCart(entryToRemove.get().getProduct().getCode(), cart.getId());
 				} catch(Exception e) {
 					LOG.error("Errore nella rimozione del prodotta da DB");
 				}
+				
+				entries.removeIf(x -> x.getProduct().getCode().equals(entryToRemove.get().getProduct().getCode()));
+				cart.setEntries(entries);
 			}
 			
-			request.getSession(false).setAttribute("cart", cart);
+			request.getSession().setAttribute("cart", cart);
 		}
 		
 		return "redirect:/cart";
@@ -131,35 +146,45 @@ public class CartController {
 		
 		CartData cart = (CartData) request.getSession().getAttribute("cart");
 		List<CartEntryProductData> entriesWithProduct = new ArrayList<>();
-		List<CartEntryData> entries = cart.getEntries();
+		List<CartEntryData> entries = null;
+		if(cart != null) {
+			entries = cart.getEntries();
+		}
 		List<ProductData> products = productFacade.getProductList("EUR");
-		for(CartEntryData entry : entries) {
-			
-			CartEntryProductData entryWithProduct = new CartEntryProductData();
-			entryWithProduct.setEntry(entry);
-			
-			ProductData product = new ProductData();
-			for(ProductData x : products) {
+		if(entries != null) {
+			for(CartEntryData entry : entries) {
 				
-				List<ColorVariantProductData> colorVariants = x.getVariants();
-				 
-				for(ColorVariantProductData y : colorVariants) {
+				CartEntryProductData entryWithProduct = new CartEntryProductData();
+				entryWithProduct.setEntry(entry);
+				
+				ProductData product = new ProductData();
+				ColorVariantProductData colVariant = new ColorVariantProductData();
+				for(ProductData x : products) {
 					
-					List<SizeVariantProductData> sizeVariants = y.getVariants();
+					List<ColorVariantProductData> colorVariants = x.getVariants();
 					
-					for(SizeVariantProductData z : sizeVariants) {
-						if(entry.getProduct().getCode().equals(z.getCode())) {
-							product = x;
+					for(ColorVariantProductData y : colorVariants) {
+						
+						List<SizeVariantProductData> sizeVariants = y.getVariants();
+						
+						for(SizeVariantProductData z : sizeVariants) {
+							if(entry.getProduct().getCode().equals(z.getCode())) {
+								product = x;
+								colVariant = y;
+								LOG.info("Color variant: " + colVariant.getColorData().getCode());
+							}
 						}
+						
 					}
+					
 				}
+				entryWithProduct.setColorVariant(colVariant);
+				entryWithProduct.setProduct(product);
+				
+				LOG.info("Prodotto: " + product.getShortDescription());
+				
+				entriesWithProduct.add(entryWithProduct);
 			}
-			
-			entryWithProduct.setProduct(product);
-			
-			LOG.info("Prodotto: " + product.getShortDescription());
-			
-			entriesWithProduct.add(entryWithProduct);
 		}
 		
 		model.addAttribute("entries", entriesWithProduct);
@@ -171,15 +196,21 @@ public class CartController {
 	public String removeAllFromCart(HttpServletRequest request) {
 		
 		CartData cart = null;
-		cart = (CartData) request.getSession(false).getAttribute("cart");
-		try {
-			List<CartEntryData> entries = cartFacade.removeAllFromCart(cart.getId());
-			cart.setEntries(entries);
-		} catch(Exception e) {
-			LOG.error("Errore nella rimozione di tutte le entry dal carrello di id: " + cart.getId());
+		cart = (CartData) request.getSession().getAttribute("cart");
+		if(cart != null) {
+			try {
+				 cartFacade.removeAllFromCart(cart.getId());
+			} catch(Exception e) {
+				LOG.error("Errore nella rimozione di tutte le entry dal carrello di id: " + cart.getId());
+			}
+			
+			List<CartEntryData> entries = cart.getEntries();
+			if(entries != null) {
+				entries.clear();
+				cart.setEntries(entries);
+			}
 		}
-		
-		request.getSession(false).setAttribute("cart", cart);
+		request.getSession().setAttribute("cart", cart);
 		
 		return "redirect:/cart";
 	}
@@ -190,7 +221,7 @@ public class CartController {
 			@RequestParam("quantity") int quantity) {
 		
 		CartData cart = null;
-		cart = (CartData) request.getSession(false).getAttribute("cart");
+		cart = (CartData) request.getSession().getAttribute("cart");
 		if(cart != null) {
 			
 			List<CartEntryData> entries = cart.getEntries();
@@ -198,17 +229,18 @@ public class CartController {
 			
 			if(entryToUpdate.isPresent()) {
 				
+				entries.forEach(x -> {if(x.getProduct().getCode().equals(entryToUpdate.get().getProduct().getCode()))
+					x.setQuantity(quantity);});		
+				cart.setEntries(entries);
+				
 				try {
-					entries.forEach(x -> {if(x.getProduct().getCode().equals(entryToUpdate.get().getProduct().getCode()))
-						x.setQuantity(quantity);});		
-					cart.setEntries(entries);
-					cartFacade.updateEntryQuantity(cart);
+					cartFacade.save(cart);
 				} catch(Exception e) {
 					LOG.error("Errore nell' update della quantita'");
 				}
 			}
 			
-			request.getSession(false).setAttribute("cart", cart);
+			request.getSession().setAttribute("cart", cart);
 		}
 		
 		

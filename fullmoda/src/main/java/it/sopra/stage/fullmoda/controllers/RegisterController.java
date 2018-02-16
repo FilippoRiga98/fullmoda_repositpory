@@ -72,8 +72,10 @@ public class RegisterController {
 		
 		String email = userData.getEmail();
 		String password = userData.getPassword();
-      userFacade.autoLoginAfterRegisration(email, password, request);
+        userFacade.autoLoginAfterRegisration(email, password, request);
 		
+        request.getSession();
+        
 		return "redirect:/home";
 	}
 	

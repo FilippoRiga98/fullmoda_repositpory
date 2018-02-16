@@ -9,7 +9,7 @@ import it.sopra.stage.fullmoda.form.RegisterForm;
 
 public interface UserFacade
 {
-	public boolean save(UserData user);
+	public boolean save(UserData user, boolean encodePassword);
 	
 	void updatePassword(String password, String email);
 

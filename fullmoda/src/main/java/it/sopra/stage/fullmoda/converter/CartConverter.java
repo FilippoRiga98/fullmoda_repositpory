@@ -40,11 +40,17 @@ public class CartConverter {
 	public Cart convert(CartData source) {
 		Cart target = new Cart();
 		target.setId(source.getId());
-		target.setUser(userConverter.convert(source.getUser()));
+		target.setUser(userConverter.convert(source.getUser(), false));
 		target.setWebsite(websiteConverter.convert(source.getWebsite()));
 		List<CartEntryData> entriesData = source.getEntries();
-		entriesData.forEach(x -> target.addCartEntry(cartEntryConverter.convert(x)));
-		target.getCartEntries().forEach(x -> x.setCart(target));
+		if(entriesData != null) {
+			entriesData.forEach(x -> target.addCartEntry(cartEntryConverter.convert(x)));
+			target.getCartEntries().forEach(x -> x.setCart(target));
+		}
+		else {
+			List<CartEntry> entries = new ArrayList<CartEntry>();
+			target.setCartEntries(entries);
+		}
 		return target;
 	}
 }

@@ -45,20 +45,6 @@ public class LoginController {
 		model.addAttribute("loginForm", new LoginForm());
 		return "login";
 	}
-	
-	//Il controller del LOGIN in post non serve in quanto è integrato in Spring Security
-	
-	/*@RequestMapping(value="/performlogin", method = RequestMethod.POST)
-	public String doLogin(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, Model model, HttpServletRequest request){
-
-		
-		if (bindingResult.hasErrors()) {
-			LOG.warn(String.format("Validation error on login page, found %s errors", bindingResult.getErrorCount()));
-			return "/login?error=true";
-		}
-		
-		return "redirect:/products";
-	}*/
 
 	
 }

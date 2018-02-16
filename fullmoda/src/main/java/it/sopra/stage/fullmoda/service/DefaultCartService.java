@@ -27,11 +27,6 @@ public class DefaultCartService implements CartService {
 	}
 
 	@Override
-	public void addToCart(Cart cart) {
-		cartRepository.save(cart);
-	}
-
-	@Override
 	@Transactional
 	public List<CartEntry> removeFromCart(String productCode, Long cartId) {
 		//Senza richiamare la repository elimina dal DB la entry selezionata
@@ -54,7 +49,7 @@ public class DefaultCartService implements CartService {
 	}
 
 	@Override
-	public void updateQuantity(Cart cart) {
+	public void save(Cart cart) {
 		cartRepository.save(cart);
 	}
 

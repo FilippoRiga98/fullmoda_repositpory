@@ -29,9 +29,9 @@ public class DefaultUserFacade implements UserFacade
 	protected AuthenticationManager authenticationManager;
 
 	@Override
-	public boolean save(UserData user)
+	public boolean save(UserData user, boolean encodePassword)
 	{
-		return userService.save(userConverter.convert(user));
+		return userService.save(userConverter.convert(user, encodePassword));
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class DefaultUserFacade implements UserFacade
 		
 		UserData userData = new UserData(registerForm.getName(), registerForm.getSurname(), userType.name(), registerForm.getEmail(), registerForm.getPassword(), registerForm.isPrivacy());
 		
-		User user = userService.registerUser(userConverter.convert(userData));
+		User user = userService.registerUser(userConverter.convert(userData, true));
 		
 		userData = null;		
 		if(user != null) {

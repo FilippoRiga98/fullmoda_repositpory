@@ -56,7 +56,16 @@
 					                <div class="col-xs-4"><img src="images/${entry.product.code}.jpg" class="img-responsive img-rounded"></div>
 	       				            <div class="col-xs-8">
 	       				            	<p>${entry.product.shortDescription}</p>
-	       				            	<span>${entry.product.description}</span>    				            
+	       				            	<div class="row">
+	       				            		<div class="col-xs-6">
+	       				            			<p>Size</p>
+	       				            			<span>${entry.entry.product.size.code}</span>
+	       				            		</div>
+	       				            		<div class="col-xs-6">
+	       				            			<p>Color</p>
+	       				            			<span>${entry.colorVariant.colorData.code}</span>
+	       				            		</div>
+	       				            	</div>            
 	       				            </div>
 				                </div>
 				            </div>  

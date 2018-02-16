@@ -8,4 +8,5 @@ import it.sopra.stage.fullmoda.model.Website;
 
 public interface WebsiteRepository extends JpaRepository<Website, String> {
 
+	Website findByLanguageName(String name);
 }

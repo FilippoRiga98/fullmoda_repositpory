@@ -11,5 +11,6 @@ public class CartEntryProductData implements Serializable{
 	
 	private CartEntryData entry;
 	private ProductData product;
+	private ColorVariantProductData colorVariant;
 
 }

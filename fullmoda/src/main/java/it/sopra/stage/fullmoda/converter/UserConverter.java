@@ -1,5 +1,6 @@
 package it.sopra.stage.fullmoda.converter;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,9 @@ public class UserConverter {
 	
 	@Autowired 
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private AddressConverter addressConverter;
 
 	public UserData convert(User source) {
 		
@@ -27,26 +31,31 @@ public class UserConverter {
 		target.setFiscalCode(source.getFiscalCode());
 		target.setPrivacyAgreement(source.isPrivacyAgreement());
 		target.setPhoneNumber(source.getPhoneNumber());
-		target.setAddress(source.getAddress());
+		target.setAddress(addressConverter.convert(source.getAddress()));
 		
 		return target;
 	}
 	
-	public User convert(UserData source) {
+	public User convert(UserData source, boolean encodePassword) {
 		
 		User target = new User();
 		target.setId(source.getId());
 		target.setEmail(source.getEmail());
 		target.setName(source.getName());
 		target.setSurname(source.getSurname());
-		target.setPassword(passwordEncoder.encode(source.getPassword()));
+		if(encodePassword == true) {
+			target.setPassword(passwordEncoder.encode(source.getPassword()));
+		}
+		else {
+			target.setPassword(source.getPassword());
+		}
 		target.setBirthDate(source.getBirthDate());
 		target.setBirthPlace(source.getBirthPlace());
 		target.setCustomerType(source.getCustomerType());
 		target.setFiscalCode(source.getFiscalCode());
 		target.setPrivacyAgreement(source.isPrivacyAgreement());
 		target.setPhoneNumber(source.getPhoneNumber());
-		target.setAddress(source.getAddress());
+		target.setAddress(addressConverter.convert(source.getAddress()));
 		
 		return target;
 	}

@@ -1,6 +1,5 @@
 package it.sopra.stage.fullmoda.facade;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +10,7 @@ import it.sopra.stage.fullmoda.service.TokenService;
 
 @Component
 public class DefaultPasswordResetTokenfacade implements TokenFacade
-{
-	private static final Logger LOG = Logger.getLogger(DefaultPasswordResetTokenfacade.class);
-	
+{	
 	@Autowired
 	private TokenService passwordResetTokenService;
 	@Autowired

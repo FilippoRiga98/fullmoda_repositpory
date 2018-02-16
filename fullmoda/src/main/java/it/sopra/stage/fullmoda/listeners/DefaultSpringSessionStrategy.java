@@ -1,17 +1,26 @@
 package it.sopra.stage.fullmoda.listeners;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.session.Session;
 import org.springframework.session.web.http.CookieHttpSessionStrategy;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
 import it.sopra.stage.fullmoda.dto.CartData;
+import it.sopra.stage.fullmoda.dto.CartEntryData;
+import it.sopra.stage.fullmoda.dto.UserData;
+import it.sopra.stage.fullmoda.dto.WebsiteData;
 import it.sopra.stage.fullmoda.facade.CartFacade;
+import it.sopra.stage.fullmoda.facade.UserFacade;
+import it.sopra.stage.fullmoda.facade.WebsiteFacade;
 
 public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 
@@ -21,6 +30,12 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 	
 	@Autowired
 	private CartFacade cartFacade;
+	
+	@Autowired
+	private UserFacade userFacade;
+	
+	@Autowired
+	private WebsiteFacade websiteFacade;
 	
 	public DefaultSpringSessionStrategy() {
 		cookieStrategy = new CookieHttpSessionStrategy();
@@ -34,8 +49,7 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 	@Override
 	public void onInvalidateSession(HttpServletRequest request, HttpServletResponse response) {
 		request.getSession().removeAttribute("cart");
-		cookieStrategy.onInvalidateSession(request, response);
-		
+		cookieStrategy.onInvalidateSession(request, response);		
 	}
 
 	@Override
@@ -51,12 +65,52 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 			LOG.warn("Utente anonimo");
 		}
 		if(email != "ANONYMOUS" && email != null && email != "") {
-			CartData cart = cartFacade.getCartByUser(email);
-			request.getSession().setAttribute("cart", cart);
+			
+			CartData cartDb = null;
+			CartData cartSession = (CartData) request.getSession().getAttribute("cart");
+			List<CartEntryData> entriesSession = cartSession.getEntries();
+			try {
+				cartDb = cartFacade.getCartByUser(email);
+				if(SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+					List<CartEntryData> entriesDb = cartDb.getEntries();
+					for(CartEntryData entrySession : entriesSession) {
+						
+						Optional<CartEntryData> optionalEntry = entriesDb.stream().filter(x -> x.getProduct().getCode()
+								.equals(entrySession.getProduct().getCode())).findFirst();
+						if(optionalEntry.isPresent()) {
+							entriesDb.forEach(x -> {if(x.getProduct().getCode().equals(entrySession.getProduct().getCode()))
+								x.setQuantity(x.getQuantity() + entrySession.getQuantity());});		
+						}
+						else {
+							entriesDb.add(entrySession);
+						}
+						
+					}
+					cartDb.setEntries(entriesDb);
+					cartFacade.save(cartDb);
+				}
+			} catch(Exception e) {
+				LOG.error("Non esiste nessun carrello per l'utente selezionato");
+			}
+			
+			if(cartDb == null) {
+				cartDb = new CartData();
+				UserData user = userFacade.validateUser(email);
+				WebsiteData website = websiteFacade.getWebsite();
+				cartDb.setUser(user);
+				cartDb.setWebsite(website);
+				cartDb.setEntries(entriesSession);
+				try {
+					cartFacade.save(cartDb);
+				} catch(Exception e) {
+					LOG.error("Non riesco a salvare il carrello per l'utente " + email);
+				}
+			}
+			request.getSession(false).setAttribute("cart", cartDb);
 			LOG.info("Carrello trovato e aggiunto alla sessione per l'utente: " + email);
 		} 
 		else {
-			request.getSession().setAttribute("cart", new CartData());
+			request.getSession(false).setAttribute("cart", new CartData());
 			LOG.info("CARRELLO VUOTO");
 		}
 	}

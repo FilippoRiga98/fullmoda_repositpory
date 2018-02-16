@@ -1,5 +1,7 @@
 package it.sopra.stage.fullmoda.form;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
@@ -11,8 +13,10 @@ import lombok.Data;
 
 @Data
 @FieldMatch(first="password", second="passwordConfirmation")
-public class RegisterForm {
+public class RegisterForm implements Serializable{
 
+	private static final long serialVersionUID = -1601267986029145976L;
+	
 	@Email
 	@NotEmpty
 	private String email;
