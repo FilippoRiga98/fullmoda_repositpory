@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,8 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.web.http.CookieHttpSessionStrategy;
+import org.springframework.session.web.http.HttpSessionManager;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
 import it.sopra.stage.fullmoda.listeners.DefaultSpringSessionStrategy;
@@ -64,13 +67,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
          	.invalidateHttpSession(true)
          	.deleteCookies("JSESSIONID")
          	.clearAuthentication(true)
-         	.logoutSuccessUrl("/login?logout=true")
-         .and().rememberMe()
+         	.logoutSuccessUrl("/login?logout=true");
+       
+       	http
+         .rememberMe()
          	.key("uniqueAndSecret")
          	.rememberMeCookieName("myRemember").tokenValiditySeconds(24 * 60 * 60)
          	.userDetailsService(userDetailsService)
-         	.tokenRepository(persistentTokenRepository())
-         .and().csrf();
+         	.tokenRepository(persistentTokenRepository());
+         
+         http.csrf();
+         
+         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+         	.sessionFixation().migrateSession();
+         
    }	
 	
 	
@@ -98,6 +108,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
   @Bean
   public HttpSessionStrategy httpSessionStrategy(){
 	  return new DefaultSpringSessionStrategy();
+  }
+  
+  @Bean
+  public HttpSessionManager htppSessionManager() {
+	  return new CookieHttpSessionStrategy();
   }
  
 }

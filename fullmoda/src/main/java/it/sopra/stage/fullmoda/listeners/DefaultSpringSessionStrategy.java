@@ -48,7 +48,6 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 
 	@Override
 	public void onInvalidateSession(HttpServletRequest request, HttpServletResponse response) {
-		request.getSession().removeAttribute("cart");
 		cookieStrategy.onInvalidateSession(request, response);		
 	}
 
@@ -67,7 +66,7 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 		if(email != "ANONYMOUS" && email != null && email != "") {
 			
 			CartData cartDb = null;
-			CartData cartSession = (CartData) request.getSession().getAttribute("cart");
+			CartData cartSession = (CartData) session.getAttribute("cart");
 			List<CartEntryData> entriesSession = cartSession.getEntries();
 			try {
 				cartDb = cartFacade.getCartByUser(email);
@@ -90,7 +89,7 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 					cartFacade.save(cartDb);
 				}
 			} catch(Exception e) {
-				LOG.error("Non esiste nessun carrello per l'utente selezionato");
+				LOG.warn("Non esiste nessun carrello per l'utente selezionato");
 			}
 			
 			if(cartDb == null) {
@@ -106,11 +105,11 @@ public class DefaultSpringSessionStrategy implements HttpSessionStrategy {
 					LOG.error("Non riesco a salvare il carrello per l'utente " + email);
 				}
 			}
-			request.getSession(false).setAttribute("cart", cartDb);
+			session.setAttribute("cart", cartDb);
 			LOG.info("Carrello trovato e aggiunto alla sessione per l'utente: " + email);
 		} 
 		else {
-			request.getSession(false).setAttribute("cart", new CartData());
+			session.setAttribute("cart", new CartData());
 			LOG.info("CARRELLO VUOTO");
 		}
 	}
