@@ -31,7 +31,11 @@ public class UserConverter {
 		target.setFiscalCode(source.getFiscalCode());
 		target.setPrivacyAgreement(source.isPrivacyAgreement());
 		target.setPhoneNumber(source.getPhoneNumber());
-		target.setAddress(addressConverter.convert(source.getAddress()));
+		if(source.getAddress() != null) {
+			target.setAddress(addressConverter.convert(source.getAddress()));
+		} else  {
+			target.setAddress(null);
+		}
 		
 		return target;
 	}
