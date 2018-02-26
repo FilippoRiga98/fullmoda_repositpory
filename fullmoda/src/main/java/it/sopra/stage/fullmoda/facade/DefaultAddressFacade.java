@@ -42,6 +42,8 @@ public class DefaultAddressFacade implements AddressFacade {
 		
 		Address address = addressService.validateAddress(line1, zipCode, town, countryCode);
 		AddressData addressData = addressConverter.convert(address);
+		
+		
 		return addressData;
 	}
 

@@ -107,7 +107,7 @@ public class CartController {
 			cartFacade.save(cart);
 		}			
 	    catch(Exception e) {
-			LOG.error("Non riesco ad aggiungere la entry al carrello per il carrello di id: " + cart.getId());
+			LOG.warn("Non riesco ad aggiungere la entry al carrello per il carrello di id: " + cart.getId());
 		}
 		
 		

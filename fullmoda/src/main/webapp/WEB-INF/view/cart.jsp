@@ -108,7 +108,7 @@
 	        </div>
         </div>
         <div class="col-md-3 col-sm-12">
-	        <button class="btn btn-success col-md-12 col-sm-6 col-xs-12">${checkoutButton}</button>
+	        <a href="checkout"><button class="btn btn-success col-md-12 col-sm-6 col-xs-12">${checkoutButton}</button></a>
 	        <br /><br />
 	        <a href="products"><button class="btn btn-primary col-md-12 col-sm-6 col-xs-12">${shopMoreButton}</button></a>
 	        <br /><br />
